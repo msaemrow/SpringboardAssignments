@@ -6,10 +6,11 @@
  */
 
 class Game {
-  constructor(){
+  constructor(p1, p2){
     this.width = 7;
     this.height = 6;
-    this.currPlayer = 1; // active player: 1 or 2
+    this.players = [p1, p2];
+    this.currPlayer = p1; // active player: p1 or p2
     this.makeBoard();
     this.makeHtmlBoard();
     this.gameOver = false;
@@ -73,7 +74,7 @@ class Game {
   placeInTable(y, x) {
     const piece = document.createElement('div');
     piece.classList.add('piece');
-    piece.classList.add(`p${this.currPlayer}`);
+    piece.style.backgroundColor = this.currPlayer.color;
     piece.style.top = -50 * (y + 2);
 
     const spot = document.getElementById(`${y}-${x}`);
@@ -92,8 +93,9 @@ class Game {
   
     // get next spot in column (if none, ignore click)
     const y = this.findSpotForCol(x);
-    
+    //if gameOver is true, stops player from placing game piece
     if(this.gameOver){
+      this.endGame(`${this.currPlayer.color} player won. Please start a new game`);
       return;
     }
 
@@ -108,7 +110,7 @@ class Game {
     // check for win
     if (this.checkForWin()) {
       this.gameOver = true;
-      return this.endGame(`Player ${this.currPlayer} won!`);
+      return this.endGame(`${this.currPlayer.color} player won!`);
     }
     
     // check for tie
@@ -117,7 +119,7 @@ class Game {
     }
       
     // switch players
-    this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+    this.currPlayer = this.currPlayer === this.players[0] ? this.players[1] : this.players[0];
   }
 
   /** checkForWin: check board cell-by-cell for "does a win start here?" */
@@ -153,9 +155,17 @@ class Game {
       }
     }
   }
-  
 }
-const startGame = document.getElementById('startBtn');
-startGame.addEventListener('click', () => {
-  new Game()
+
+class Player{
+  constructor(color){
+    this.color = color;
+  }
+
+}
+document.getElementById('startBtn').addEventListener('click', () => {
+  let p1 = new Player(document.getElementById('p1').value);
+  let p2 = new Player(document.getElementById('p2').value);
+  new Game(p1, p2);
 });
+
