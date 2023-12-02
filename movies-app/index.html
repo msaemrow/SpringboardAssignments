@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Rating App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Rate your movies!</h1>
+    <form id="rating-form">
+        <label for="title">Movie Title</label>
+        <input id = "title" type="text" required minlength="2"/><br>
+        <label for="rating">Rating: Least favorite</label>
+        <!-- used slider to ensure values are 1-10 with step of 0.5 to get most accurate value -->
+        <input id="rating" type="range" max="10" min="1" step="0.5" value="0"/><br> 
+        <label for="rating">Favorite</label>
+        <button id="submitBtn">Submit Moving Rating</button>
+    </form>
+    <table class ='rating-table'>
+        <thead id="table-head">
+            <tr>
+                <th scope="col" >Movie Title<button id= "title" class="sortBtn up">(Sort)</button></th>
+                <th scope="col">Rating<button id="rating" class="sortBtn up">(Sort)</button></th>
+                <th scope="col">Delete Rating</th>
+            </tr>
+        </thead>
+        <tbody id='table-body'>
+            <tr>
+
+            </tr>
+        </tbody>
+    </table>
+    <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+    <script src="app.js"></script>
+</body>
+</html>
