@@ -39,12 +39,13 @@ class Garage{
     }
 
     add(newVehicle){
-        if(this.vehicles.length >= this.capacity){
+        if(this.capacity === 0){
             return "Sorry, we're full."
         } else if(typeof newVehicle !== "object"){
             return "Sorry, only vehicles are allowed in here!"
         } 
-        this.vehicles.push(obj);
+        this.vehicles.push(newVehicle);
+        this.capacity --;
         return "Vehicle added!"
     }
 }
