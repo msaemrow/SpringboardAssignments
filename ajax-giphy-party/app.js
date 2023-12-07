@@ -41,6 +41,7 @@ function setGifSize(event, gifArr){
 //appends 25 gifs to the gifContainer on the page
 searchBtn.addEventListener('click', async (e) => {
     e.preventDefault();
+    gifContainer.innerHTML = '';
     const gifArr = await getGifArr(searchBar.value);
     printAllGifs(gifArr);
 });
