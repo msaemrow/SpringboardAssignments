@@ -202,25 +202,26 @@ class User {
 
   async favoriteStory(story){
     this.favorites.push(story);
-    console.log(this.favorites)
     await this.favoriteOrUnfavoriteStory("POST", story);
 
   }
 
   async unfavoriteStory(story){
     this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
-    const token = this.loginToken;
     await this.favoriteOrUnfavoriteStory("DELETE", story);
   }
 
   async favoriteOrUnfavoriteStory(requestType, story){
     const token = this.loginToken;
-    await `axios.${requestType}`(`${BASE_URL}/users/${this.username}/favorites/${story.storyId}`, { token });
-    // const response = await axios({
-    //   url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
-    //   method: requestType,
-    //   data: { token },
-    // });
+    const response = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${story.storyId}`,
+      method: requestType,
+      data: { token },
+    });
+  }
+
+  isFavorite(story){
+    return this.favorites.some((s) => s.storyId === story.storyId);
   }
 
 }
