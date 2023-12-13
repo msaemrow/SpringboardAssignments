@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <!-- Hack or Snooze
-
+    Matt Saemrow
      This is the only HTML page; the applications manipulates this DOM
      during use.
 
@@ -56,16 +56,18 @@
 
   <!-- form to submit story; inially hidden -->
   <form action="" class="hidden" id="new-story-form">
-
-    <label for="story-author">Author</label>
-    <input id="story-author" type="text">
-
-    <label for="story-title">Title</label>
-    <input id="story-title" type="text">
-
-    <label for="story-url">URL</label>
-    <input id="story-url" type="text">
-
+    <div class="label-input">
+      <label for="story-author">Author</label>
+      <input id="story-author" type="text">
+    </div>
+    <div class="label-input">
+      <label for="story-title">Title</label>
+      <input id="story-title" type="text">
+    </div>
+    <div class="label-input">
+      <label for="story-url">URL</label>
+      <input id="story-url" type="text">
+    </div>
     <button id="submitStoryBtn" type="submit">Submit</button>
   </form>
 

@@ -3,7 +3,8 @@
 body {
   font-family: Arimo, sans-serif;
   margin: 8px 7.5vw;
-  background-image: linear-gradient(90deg, rgb(75, 176, 209), rgb(233, 151, 165), rgb(75, 176, 209));
+  height: 100vh;
+  background-image: radial-gradient(circle, rgb(233, 151, 165) 20%, rgb(104, 161, 214) 100%);
 }
 
 h1 {
@@ -30,7 +31,6 @@ a:hover {
   text-decoration: underline;
 }
 
-
 /* Site layout */
 
 /* This is the basic box that the main part of the page goes into */
@@ -39,6 +39,11 @@ a:hover {
   flex-direction: column;
   align-self: center;
   background-color: #f6f6ef;
+}
+
+.stories-container{
+  overflow: scroll;
+  height: calc(100vh - 60px)
 }
 
 .hidden {

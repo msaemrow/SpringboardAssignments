@@ -10,6 +10,7 @@ const $allStoriesList = $("#all-stories-list");
 const $favoriteStoryList = $("#favorite-story-list");
 const $userStoriesList = $("#user-story-list");
 const $storiesList = $(".stories-list");
+const $storiesContainer = $(".stories-container")
 
 
 //form selectors
@@ -42,7 +43,7 @@ function hidePageComponents() {
     $userStoriesList,
     $loginForm,
     $signupForm,
-    $submitForm
+    $submitForm,
   ];
   components.forEach(c => c.hide());
 }
@@ -53,7 +54,11 @@ async function start() {
   console.debug("start");
 
   // "Remember logged-in user" and log in, if credentials in localStorage
-  await checkForRememberedUser();
+  if(await checkForRememberedUser() === false){
+    $navSubmitStoryBtn.hide();
+    $showFavorites.hide();
+    $showMyStories.hide();
+  }
   await getAndShowStoriesOnStart();
 
   // if we got a logged-in user

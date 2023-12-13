@@ -138,7 +138,8 @@ class User {
    */
 
   static async signup(username, password, name) {
-    const response = await axios({
+    try{
+      const response = await axios({
       url: `${BASE_URL}/signup`,
       method: "POST",
       data: { user: { username, password, name } },
@@ -156,6 +157,11 @@ class User {
       },
       response.data.token
     );
+    } catch (err) {
+      alert("Username already taken. Please choose a different username")
+      console.error("signup failed", err);
+      return null;
+    }
   }
 
   /** Login in user with API, make User instance & return it.
@@ -210,6 +216,7 @@ class User {
         token
       );
     } catch (err) {
+      alert("Login credentials failed. Please try again")
       console.error("loginViaStoredCredentials failed", err);
       return null;
     }
