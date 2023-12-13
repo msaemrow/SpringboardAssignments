@@ -10,6 +10,7 @@ function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
+  $favoriteStoryList.show();
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -36,7 +37,7 @@ function updateNavOnLogin() {
 }
 
 
-
+/** Display new story for when submit is clicked in the header */
 function navSubmitBtnClick(){
   hidePageComponents();
   $allStoriesList.show();
@@ -44,3 +45,21 @@ function navSubmitBtnClick(){
 }
 
 $navSubmitStoryBtn.on("click", navSubmitBtnClick);
+
+/** Display the list of favorites when favorites is clicked in the header */
+function navFavoritesClick(){
+  hidePageComponents();
+  putFavoritesOnPage();
+  $favoriteStoryList.show();
+}
+
+$showFavorites.on('click', navFavoritesClick);
+
+/** Display the list of stories created by user when my stories is clicked in the header */
+function navMyStoriesClick(){
+  hidePageComponents();
+  putUserStoriesOnPage();
+  $userStoriesList.show();
+}
+
+$showMyStories.on('click', navMyStoriesClick);
