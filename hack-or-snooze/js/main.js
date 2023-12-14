@@ -17,8 +17,9 @@ const $storiesContainer = $(".stories-container")
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 const $submitForm = $("#new-story-form");
-
-
+const $updateForm = $("#update-story-form");
+const $updateBtn = $("#update-story-btn");
+const $updateFormStoryId = $("#edit-story-author")
 
 //nav button selectors
 const $navSubmitStoryBtn = $('#nav-submit');
@@ -29,7 +30,8 @@ const $showFavorites = $("#nav-favorites");
 const $showMyStories = $("#nav-my-stories");
 
 //icon seletors
-const $trashCan = $(".trash-can")
+const $trashCan = $(".trash-can");
+const $editBtn= $(".edit-btn")
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After
@@ -44,6 +46,7 @@ function hidePageComponents() {
     $loginForm,
     $signupForm,
     $submitForm,
+    $updateForm
   ];
   components.forEach(c => c.hide());
 }

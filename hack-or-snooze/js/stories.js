@@ -36,7 +36,7 @@
    * Returns the markup for the story.
    */
 
-  function generateStoryMarkup(story, showDeleteBtn = false) {
+  function generateStoryMarkup(story, showDeleteBtn = false, showEditBtn = false) {
     // console.debug("generateStoryMarkup", story);
 
     const hostName = story.getHostName();
@@ -48,6 +48,7 @@
         <div class = "icons-div">
           ${showDeleteBtn ? generateDeleteBtnHTML() : ""}
           ${showStar ? generateStarHTML(story, currentUser) : ""}
+          ${showEditBtn ? generateEditBtnHTML() : ""}
         </div>
         <div class="story-information">
           <div class="story-top-row">
@@ -67,6 +68,13 @@
     return `
         <span class="trash-can">
           <i class="fas fa-trash-alt"></i>
+        </span>`;
+  }
+
+  function generateEditBtnHTML() {
+    return `
+        <span class="edit-btn">
+          <i class="fas fa-edit"></i>
         </span>`;
   }
 
@@ -117,10 +125,9 @@
 
     if(currentUser.ownStories.length === 0){
       $userStoriesList.append("<p>You haven't created any stories. Time to go write one!</p>")
-      console.log("Success")
     } else{
       for(let story of currentUser.ownStories){
-        const myStory = generateStoryMarkup(story, true);
+        const myStory = generateStoryMarkup(story, true, true);
         $userStoriesList.append(myStory);
       }
     }
@@ -134,6 +141,44 @@
   }
 
   $userStoriesList.on('click', ".trash-can", deleteStory);
+
+
+  //edit user sumbitted story
+  async function editStory(e){
+    e.preventDefault();
+
+    const storyId = $("#edit-story-id").val();
+    const author = $("#edit-story-author").val();
+    const title = $("#edit-story-title").val();
+    const url = $("#edit-story-url").val();
+
+    await storyList.editStoryAuthorTitleUrl(currentUser, storyId, author, title, url);
+    putUserStoriesOnPage();
+  }
+
+  $updateBtn.on('click', editStory);
+
+  //shows update story form and prepopulates current story id, author, title, and url
+  function myStoriesEditBtnClick(e){
+    hidePageComponents();
+
+    const closestLi = $(e.target).closest('li');
+    const storyId = closestLi.attr('id');
+    $("#edit-story-id").val(storyId);
+    const storyToEdit = currentUser.ownStories.find((s) => s.storyId === storyId);
+    const author = storyToEdit.author;
+    const title = storyToEdit.title;
+    const url = storyToEdit.url;
+    $("#edit-story-author").val(author)
+    $("#edit-story-title").val(title)
+    $("#edit-story-url").val(url)
+
+    $userStoriesList.show();
+    $updateForm.show();
+
+  }
+  
+  $userStoriesList.on('click', ".edit-btn", myStoriesEditBtnClick)
 
 
 

@@ -112,6 +112,10 @@ form > hr {
   width: 70px;
 }
 
+#updateStoryBtn{
+  width: 5em;
+}
+
 
 /* responsive queries for tightening things up for mobile. */
 

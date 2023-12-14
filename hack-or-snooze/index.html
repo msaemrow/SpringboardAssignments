@@ -71,6 +71,30 @@
     <button id="submitStoryBtn" type="submit">Submit</button>
   </form>
 
+
+    <!-- form to edit story; inially hidden -->
+    <form action="" class="hidden" id="update-story-form">
+      <div class="label-input">
+        <label for="edit-story-id">Story ID</label>
+        <input id="edit-story-id" type="text">
+      </div>
+      <div class="label-input">
+        <label for="edit-story-author">Author</label>
+        <input id="edit-story-author" type="text">
+      </div>
+      <div class="label-input">
+        <label for="edit-story-title">Title</label>
+        <input id="edit-story-title" type="text">
+      </div>
+      <div class="label-input">
+        <label for="edit-story-url">URL</label>
+        <input id="edit-story-url" type="text">
+      </div>
+      <button id="update-story-btn" type="submit">Update Story</button>
+    </form>
+
+
+
   <!-- loading message (removed by JS after stories loaded) -->
   <div id="stories-loading-msg">Loading&hellip;</div>
 

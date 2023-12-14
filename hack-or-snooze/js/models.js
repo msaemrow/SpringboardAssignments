@@ -91,12 +91,50 @@ class StoryList {
       data: {token}
     })
 
-    // await axios.delete(`${BASE_URL}/stories/${storyId}`, {token: token});
-
     this.stories = this.stories.filter(s => s.storyId !== storyId);
     user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
-    user.favories = user.favorites.filter(s => s.storyId !== storyId);
+    user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
+
+  async editStoryAuthorTitleUrl(user, storyId, author, title, url) {
+    const token = user.loginToken;
+    const idToEdit = storyId;
+    console.log(idToEdit);
+    const response = await axios.patch(`${BASE_URL}/stories/${idToEdit}`, {token, story: {author, title, url}});
+    // const response = await axios({
+    //   url:`${BASE_URL}/stories/${storyId}`,
+    //   method: "PATCH",
+    //   data: {token, story: {author, title, url}}
+    // })
+    const newAuthor = response.data.story.author;
+    console.log(newAuthor);
+    const newTitle = response.data.story.title;
+    const newUrl = response.data.story.url;
+    
+    //update own stories array
+    const ownIndex = user.ownStories.findIndex((s) => s.storyId === idToEdit);
+    user.ownStories[ownIndex].author = newAuthor;
+    user.ownStories[ownIndex].title = newTitle;
+    user.ownStories[ownIndex].url = newUrl;
+
+    //update favorite stories array
+    const favIndex = user.favorites.findIndex((s) => s.storyId === idToEdit);
+    console.log(favIndex);
+    if(favIndex === -1){
+      return
+    } else{
+    user.favorites[favIndex].author = newAuthor;
+    user.favorites[favIndex].title = newTitle;
+    user.favorites[favIndex].url = newUrl;
+    }    
+
+    //update favorite stories array
+    const allIndex = this.stories.findIndex((s) => s.storyId === idToEdit);
+    this.stories[allIndex].author = newAuthor;
+    this.stories[allIndex].title = newTitle;
+    this.stories[allIndex].url = newUrl;    
+  }
+  
 }
 
 
@@ -159,7 +197,7 @@ class User {
     );
     } catch (err) {
       alert("Username already taken. Please choose a different username")
-      console.error("signup failed", err);
+      console.log("signup failed", err);
       return null;
     }
   }
@@ -171,24 +209,24 @@ class User {
    */
 
   static async login(username, password) {
-    const response = await axios({
-      url: `${BASE_URL}/login`,
-      method: "POST",
-      data: { user: { username, password } },
-    });
+      const response = await axios({
+        url: `${BASE_URL}/login`,
+        method: "POST",
+        data: { user: { username, password } },
+      });
 
-    let { user } = response.data;
+      let { user } = response.data;
 
-    return new User(
-      {
-        username: user.username,
-        name: user.name,
-        createdAt: user.createdAt,
-        favorites: user.favorites,
-        ownStories: user.stories
-      },
-      response.data.token
-    );
+      return new User(
+        {
+          username: user.username,
+          name: user.name,
+          createdAt: user.createdAt,
+          favorites: user.favorites,
+          ownStories: user.stories
+        },
+        response.data.token
+      );
   }
 
   /** When we already have credentials (token & username) for a user,
