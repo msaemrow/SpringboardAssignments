@@ -56,6 +56,7 @@ class StoryList {
     const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "GET",
+      data: {limit: 25}
     });
 
     // turn plain old story objects from API into instances of Story class
