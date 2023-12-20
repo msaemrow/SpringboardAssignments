@@ -1,41 +1,70 @@
+//these functions focus on DOM manipulation. functions to update API data are under models.js
+
 "use strict";
 
   // This is the global list of the stories, an instance of StoryList
   let storyList;
 
-  /** Get and show stories when site first loads. */
 
+  //==============================================================================
+  //functions to put stories on page (all, favorites, my stories)
+
+  /** Get and show stories when site first loads. */
   async function getAndShowStoriesOnStart() {
-    storyList = await StoryList.getStories();
+    storyList = await StoryList.getStories(20, 20);
     $storiesLoadingMsg.remove();
 
     putStoriesOnPage();
   }
 
   /** Gets list of stories from server, generates their HTML, and puts on page. */
-
   function putStoriesOnPage() {
     console.debug("putStoriesOnPage");
 
     $allStoriesList.empty();
 
-    // loop through all of our stories and generate HTML for them
     for (let story of storyList.stories) {
       const $story = generateStoryMarkup(story);
       $allStoriesList.append($story);
     }
 
     $allStoriesList.show();
+    $moreStories.show();
   }
 
 
-  /**
-   * A render method to render HTML for an individual Story instance
-   * - story: an instance of Story
-   *
-   * Returns the markup for the story.
-   */
-
+  /** Gets list of favorite stories from server, generates their HTML, and puts on page. */
+  function putFavoritesOnPage(){
+    $favoriteStoryList.empty();
+  
+    if(currentUser.favorites.length === 0){
+       $favoriteStoryList.append("<p>No favorites have been added yet! Time to go read some stories!</p>")
+    } else{
+        for(let story of currentUser.favorites){
+          const favStory = generateStoryMarkup(story);
+          $favoriteStoryList.append(favStory);
+        }
+    }
+    $moreStories.hide();
+    }
+  
+    //add all user created stories to the page
+    function putUserStoriesOnPage(){
+      $userStoriesList.empty();
+  
+      if(currentUser.ownStories.length === 0){
+        $userStoriesList.append("<p>You haven't created any stories. Time to go write one!</p>")
+      } else{
+        for(let story of currentUser.ownStories){
+          const myStory = generateStoryMarkup(story, true, true);
+          $userStoriesList.append(myStory);
+        }
+      }
+      $moreStories.hide();
+    }
+  
+  //=======================================================================================
+  //Story and icon html generation functions 
   function generateStoryMarkup(story, showDeleteBtn = false, showEditBtn = false) {
     // console.debug("generateStoryMarkup", story);
 
@@ -87,22 +116,8 @@
     </span>`;
   }
 
-
-
-  /** Gets list of favorite stories from server, generates their HTML, and puts on page. */
-  function putFavoritesOnPage(){
-    $favoriteStoryList.empty();
-
-    if(currentUser.favorites.length === 0){
-        $favoriteStoryList.append("<p>No favorites have been added yet! Time to go read some stories!</p>")
-      } else{
-        for(let story of currentUser.favorites){
-          const favStory = generateStoryMarkup(story);
-          $favoriteStoryList.append(favStory);
-        }
-      }
-  }
-
+  //===========================================================================================
+  //functions for clicking on icons (favorite, delete, edit)
   async function toggleFavoriteStar(e){
     const target = $(e.target);
     const closestLi = target.closest("li");
@@ -120,19 +135,6 @@
 
   $storiesList.on("click", ".star", toggleFavoriteStar);
 
-  function putUserStoriesOnPage(){
-    $userStoriesList.empty();
-
-    if(currentUser.ownStories.length === 0){
-      $userStoriesList.append("<p>You haven't created any stories. Time to go write one!</p>")
-    } else{
-      for(let story of currentUser.ownStories){
-        const myStory = generateStoryMarkup(story, true, true);
-        $userStoriesList.append(myStory);
-      }
-    }
-  }
-
   async function deleteStory(e){
     const closestLi = $(e.target).closest('li');
     const storyId = closestLi.attr('id');
@@ -142,11 +144,8 @@
 
   $userStoriesList.on('click', ".trash-can", deleteStory);
 
-
-  //edit user sumbitted story
   async function editStory(e){
     e.preventDefault();
-
     const storyId = $("#edit-story-id").val();
     const author = $("#edit-story-author").val();
     const title = $("#edit-story-title").val();
@@ -154,14 +153,15 @@
 
     await storyList.editStoryAuthorTitleUrl(currentUser, storyId, author, title, url);
     putUserStoriesOnPage();
+    $updateForm.hide();
   }
 
   $updateBtn.on('click', editStory);
 
-  //shows update story form and prepopulates current story id, author, title, and url
+  //=================================================================================
+  //functions that act on new story form and edit form
   function myStoriesEditBtnClick(e){
     hidePageComponents();
-
     const closestLi = $(e.target).closest('li');
     const storyId = closestLi.attr('id');
     $("#edit-story-id").val(storyId);
@@ -172,32 +172,31 @@
     $("#edit-story-author").val(author)
     $("#edit-story-title").val(title)
     $("#edit-story-url").val(url)
-
     $userStoriesList.show();
     $updateForm.show();
-
   }
   
   $userStoriesList.on('click', ".edit-btn", myStoriesEditBtnClick)
 
-
-
   async function submitNewStoryClick(e){
     e.preventDefault();
-
     const author = $('#story-author').val();
     const title = $('#story-title').val();
     const url = $('#story-url').val();
-
     const storyData = {author, title, url}
-
     const addStory = await storyList.addStory(currentUser, storyData);
     const storyHtml = generateStoryMarkup(addStory);
     $allStoriesList.prepend(storyHtml);
-
     $submitForm.slideUp("slow");
     $submitForm.trigger("reset");
   }
 
   $submitForm.on('submit', submitNewStoryClick);
 
+
+  //===========================================================================
+  function getMoreStories(e){
+    console.log("trying to get more stories is not functional yet")
+  }
+
+  $moreStories.on('click', getMoreStories)

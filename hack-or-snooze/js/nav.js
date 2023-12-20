@@ -9,10 +9,12 @@
 function navAllStories(evt) {
   console.debug("navAllStories", evt);
   hidePageComponents();
+  $storiesContainer.show();
   putStoriesOnPage();
 }
 
 $body.on("click", "#nav-all", navAllStories);
+  
 
 /** Show login/signup on click on "login" */
 
@@ -26,12 +28,15 @@ function navLoginClick(evt) {
 
 $navLogin.on("click", navLoginClick);
 
+
 /** When a user first logins in, update the navbar to reflect that. */
 
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   $(".main-nav-links").show();
   $navLogin.hide();
+  $loginForm.hide();
+  $signupForm.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
   $storiesContainer.show();

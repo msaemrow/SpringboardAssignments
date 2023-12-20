@@ -32,6 +32,7 @@ const $showMyStories = $("#nav-my-stories");
 //icon seletors
 const $trashCan = $(".trash-can");
 const $editBtn= $(".edit-btn")
+const $moreStories = $('#icon-div')
 
 /** To make it easier for individual components to show just themselves, this
  * is a useful function that hides pretty much everything on the page. After

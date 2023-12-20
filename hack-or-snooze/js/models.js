@@ -46,7 +46,7 @@ class StoryList {
    *  - returns the StoryList instance.
    */
 
-  static async getStories() {
+  static async getStories(numStories, skipStories) {
     // Note presence of `static` keyword: this indicates that getStories is
     //  **not** an instance method. Rather, it is a method that is called on the
     //  class directly. Why doesn't it make sense for getStories to be an
@@ -56,7 +56,7 @@ class StoryList {
     const response = await axios({
       url: `${BASE_URL}/stories`,
       method: "GET",
-      data: {limit: 25}
+      data: {limit: numStories, skip: skipStories}
     });
 
     // turn plain old story objects from API into instances of Story class
@@ -81,7 +81,6 @@ class StoryList {
     user.ownStories.unshift(story);
 
     return story;
-
   }
 
   async removeStory(user, storyId) {
@@ -102,11 +101,7 @@ class StoryList {
     const idToEdit = storyId;
     console.log(idToEdit);
     const response = await axios.patch(`${BASE_URL}/stories/${idToEdit}`, {token, story: {author, title, url}});
-    // const response = await axios({
-    //   url:`${BASE_URL}/stories/${storyId}`,
-    //   method: "PATCH",
-    //   data: {token, story: {author, title, url}}
-    // })
+
     const newAuthor = response.data.story.author;
     console.log(newAuthor);
     const newTitle = response.data.story.title;
@@ -129,15 +124,13 @@ class StoryList {
     user.favorites[favIndex].url = newUrl;
     }    
 
-    //update favorite stories array
+    //update stories array
     const allIndex = this.stories.findIndex((s) => s.storyId === idToEdit);
     this.stories[allIndex].author = newAuthor;
     this.stories[allIndex].title = newTitle;
     this.stories[allIndex].url = newUrl;    
-  }
-  
+  } 
 }
-
 
 /******************************************************************************
  * User: a user in the system (only used to represent the current user)
@@ -148,7 +141,6 @@ class User {
    *   - {username, name, createdAt, favorites[], ownStories[]}
    *   - token
    */
-
   constructor({
                 username,
                 name,
@@ -175,7 +167,6 @@ class User {
    * - password: a new password
    * - name: the user's full name
    */
-
   static async signup(username, password, name) {
     try{
       const response = await axios({
@@ -199,7 +190,8 @@ class User {
     } catch (err) {
       alert("Username already taken. Please choose a different username")
       console.log("signup failed", err);
-      return null;
+      putStoriesOnPage();
+      return;
     }
   }
 

@@ -31,6 +31,17 @@ a:hover {
   text-decoration: underline;
 }
 
+p{
+  font-size: 0.5em;
+}
+
+#icon-div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #d4d4d4f5;
+}
+
 /* Site layout */
 
 /* This is the basic box that the main part of the page goes into */
