@@ -11,7 +11,7 @@
 
   /** Get and show stories when site first loads. */
   async function getAndShowStoriesOnStart() {
-    storyList = await StoryList.getStories(20, 20);
+    storyList = await StoryList.getStories(5, 0);
     $storiesLoadingMsg.remove();
 
     putStoriesOnPage();
@@ -195,8 +195,10 @@
 
 
   //===========================================================================
-  function getMoreStories(e){
+  async function getMoreStories(e){
     console.log("trying to get more stories is not functional yet")
+    storyList = await StoryList.getStories(5, 5);
+    putStoriesOnPage();
   }
 
   $moreStories.on('click', getMoreStories)
