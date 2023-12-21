@@ -83,7 +83,7 @@ class Game {
 
   /** endGame: announce game end */
   endGame(msg) {
-    alert(msg);
+    setTimeout(()=> alert(msg), 1)
   }
 
   /** handleClick: handle click of column top to play piece */
@@ -110,12 +110,14 @@ class Game {
     // check for win
     if (this.checkForWin()) {
       this.gameOver = true;
-      return this.endGame(`${this.currPlayer.color} player won!`);
+      this.endGame(`${this.currPlayer.color} player won!`);
+      return;
     }
     
     // check for tie
     if (this.board.every(row => row.every(cell => cell))) {
-      return this.endGame('Tie!');
+      this.endGame('Tie!');
+      return;
     }
       
     // switch players
