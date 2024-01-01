@@ -1,3 +1,11 @@
+
+def find_frequency(number_list):
+    digits = {}
+    for num in str(number_list):
+        digits[num] = digits.get(num, 0) + 1
+    return digits
+
+
 def same_frequency(num1, num2):
     """Do these nums have same frequencies of digits?
     
@@ -10,3 +18,9 @@ def same_frequency(num1, num2):
         >>> same_frequency(1212, 2211)
         True
     """
+
+    if find_frequency(str(num1))== find_frequency(str(num2)):
+        return True
+    else:
+        return False
+    
