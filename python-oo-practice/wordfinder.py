@@ -6,15 +6,15 @@ class WordFinder:
     """Machine for finding random words from dictionary.
     
     >>> wf = WordFinder("simple.txt")
-    3 words read
+    Words found: 3
 
-    >>> wf.random() in ["cat", "dog", "porcupine"]
+    >>> wf.random_word() in ["cat", "dog", "porcupine"]
     True
 
-    >>> wf.random() in ["cat", "dog", "porcupine"]
+    >>> wf.random_word() in ["cat", "dog", "porcupine"]
     True
 
-    >>> wf.random() in ["cat", "dog", "porcupine"]
+    >>> wf.random_word() in ["cat", "dog", "porcupine"]
     True
     """
         
@@ -37,15 +37,15 @@ class SpecialWordFinder(WordFinder):
     """Specialized WordFinder that excludes blank lines/comments.
     
     >>> swf = SpecialWordFinder("complex.txt")
-    3 words read
+    Words found: 3
 
-    >>> swf.random() in ["pear", "carrot", "kale"]
+    >>> swf.random_word() in ["pear", "carrot", "kale"]
     True
 
-    >>> swf.random() in ["pear", "carrot", "kale"]
+    >>> swf.random_word() in ["pear", "carrot", "kale"]
     True
 
-    >>> swf.random() in ["pear", "carrot", "kale"]
+    >>> swf.random_word() in ["pear", "carrot", "kale"]
     True
     """
 
