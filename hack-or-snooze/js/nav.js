@@ -29,7 +29,7 @@ function navLoginClick(evt) {
 $navLogin.on("click", navLoginClick);
 
 
-/** When a user first logins in, update the navbar to reflect that. */
+/** When a user first logins in, update the stories and navbar to reflect that. */
 
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
@@ -46,7 +46,7 @@ function updateNavOnLogin() {
 }
 
 
-/** Display new story for when submit is clicked in the header */
+/** Display new story form when submit is clicked in the header */
 function navSubmitBtnClick(){
   hidePageComponents();
   $allStoriesList.show();

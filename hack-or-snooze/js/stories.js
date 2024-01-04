@@ -4,14 +4,14 @@
 
   // This is the global list of the stories, an instance of StoryList
   let storyList;
-
+  let numOfStories = 8;
 
   //==============================================================================
   //functions to put stories on page (all, favorites, my stories)
 
   /** Get and show stories when site first loads. */
   async function getAndShowStoriesOnStart() {
-    storyList = await StoryList.getStories(5, 0);
+    storyList = await StoryList.getStories(6, 0);
     $storiesLoadingMsg.remove();
 
     putStoriesOnPage();
@@ -32,6 +32,14 @@
     $moreStories.show();
   }
 
+  //Function that gets more retrieves more stories and adds them to the bottom of the page
+  async function getMoreStories(e){
+    storyList = await StoryList.getStories(numOfStories, 0);
+    putStoriesOnPage();
+    numOfStories += 2;
+  }
+
+  $moreStories.on('click', getMoreStories)
 
   /** Gets list of favorite stories from server, generates their HTML, and puts on page. */
   function putFavoritesOnPage(){
@@ -56,7 +64,7 @@
         $userStoriesList.append("<p>You haven't created any stories. Time to go write one!</p>")
       } else{
         for(let story of currentUser.ownStories){
-          const myStory = generateStoryMarkup(story, true, true);
+          const myStory = generateStoryMarkup(story, true, true, true);
           $userStoriesList.append(myStory);
         }
       }
@@ -66,10 +74,8 @@
   //=======================================================================================
   //Story and icon html generation functions 
   function generateStoryMarkup(story, showDeleteBtn = false, showEditBtn = false) {
-    // console.debug("generateStoryMarkup", story);
 
     const hostName = story.getHostName();
-
     const showStar = Boolean(currentUser);
 
     return $(`
@@ -108,11 +114,9 @@
   }
 
   function generateStarHTML(story, user){
-    const favorite = user.isFavorite(story);
-    const star = favorite ? "fas" : "far";
     return `
     <span class="star">
-      <i class="${star} fa-star"></i>
+      <i class="${user.isFavorite(story) ? "fas" : "far"} fa-star"></i>
     </span>`;
   }
 
@@ -120,17 +124,14 @@
   //functions for clicking on icons (favorite, delete, edit)
   async function toggleFavoriteStar(e){
     const target = $(e.target);
-    const closestLi = target.closest("li");
-    const storyId = closestLi.attr("id");
-    const story = storyList.stories.find(s => s.storyId === storyId);
+    const story = storyList.stories.find(s => s.storyId === target.closest("li").attr("id"));
 
     if(target.hasClass("fas")){
       await currentUser.unfavoriteStory(story);
-      target.closest("i").toggleClass("fas far");
     } else{
       await currentUser.favoriteStory(story);
-      target.closest("i").toggleClass("fas far");
     }
+      target.closest("i").toggleClass("fas far");
   }
 
   $storiesList.on("click", ".star", toggleFavoriteStar);
@@ -195,10 +196,3 @@
 
 
   //===========================================================================
-  async function getMoreStories(e){
-    console.log("trying to get more stories is not functional yet")
-    storyList = await StoryList.getStories(5, 5);
-    putStoriesOnPage();
-  }
-
-  $moreStories.on('click', getMoreStories)

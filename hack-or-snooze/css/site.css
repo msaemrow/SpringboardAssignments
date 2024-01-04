@@ -54,7 +54,7 @@ p{
 
 .stories-container{
   overflow: scroll;
-  height: calc(100vh - 60px)
+  height: calc(100vh - 45px);
 }
 
 .hidden {
