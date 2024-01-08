@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} Create Story Form {% endblock %}
+
+{% block content %}
+    <h2>Fill out the form below to create your own madlib!</h2>
+    <h2>Story chosen: {{title}}</h2>
+    <form action="/story">
+        {% for prompt in prompts %}
+        <p> {{prompt}}: <input type="text" name="{{prompt}}">
+        </p>
+        {% endfor %}
+        <input type="hidden" name="story_id", value="{{story_id}}">
+        <button>Submit</button>
+    </form>
+{%endblock%}
