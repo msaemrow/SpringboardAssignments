@@ -1,6 +1,6 @@
-from flask import Flask, render_template, redirect, request, session, flash
+from flask import Flask, render_template, redirect, request, session, make_response
 from flask_debugtoolbar import DebugToolbarExtension
-from surveys import satisfaction_survey as survey
+from surveys import surveys
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'flask_survery'
@@ -12,16 +12,26 @@ app.debug = True
 toolbar = DebugToolbarExtension(app)
 
 RESPONSES_KEY = "responses"
+CURR_SURVEY_KEY = "current_survey"
 
 @app.route('/')
 def home_page():
-    # title = satisfaction_survey.title
-    # instructions = satisfaction_survey.instructions
-    # return render_template('home.html', title=title, instructions=instructions)
-    return render_template('home.html',survey=survey)
+    return render_template('home.html',survey_list=surveys)
+
+@app.route("/", methods=["POST"])
+def pick_survey():
+    survey_id = request.form['survey_abbr']
+
+    if request.cookies.get(f"completed_{survey_id}"):
+        return render_template("already-completed.html")
+    
+    survey = surveys[survey_id]
+    session[CURR_SURVEY_KEY] = survey_id
+
+    return render_template('start.html', survey=survey)
 
 @app.route('/start', methods=["POST"])
-def start_survey():
+def begin_survey():
     session[RESPONSES_KEY] = []
 
     return redirect("/questions/0")
@@ -30,10 +40,15 @@ def start_survey():
 @app.route('/answer', methods=["POST"])
 def store_answer():
     """Store response and redirect to next question"""
-    choice = request.form['answer']   
+    choice = request.form['answer']
+    text = request.form.get("text", "")   
+
     responses = session[RESPONSES_KEY]
-    responses.append(choice)
+    responses.append({"choice": choice, "text": text})
+
     session[RESPONSES_KEY] = responses
+    survey_id = session[CURR_SURVEY_KEY]
+    survey = surveys[survey_id]
 
     if (len(responses) == len(survey.questions)):
         return redirect('/complete')
@@ -46,6 +61,8 @@ def store_answer():
 def display_question(qnum):
     """Displays question"""
     responses = session.get(RESPONSES_KEY)
+    survey_id = session[CURR_SURVEY_KEY]
+    survey = surveys[survey_id]
 
     if responses is None:
         return redirect("/")
@@ -63,4 +80,11 @@ def display_question(qnum):
 
 @app.route('/complete')
 def complete():
-    return render_template('complete.html', survey=survey)
+    responses = session.get(RESPONSES_KEY)
+    survey_id = session[CURR_SURVEY_KEY]
+    survey = surveys[survey_id]
+
+    html = render_template('complete.html', responses=responses, questions=survey.questions, survey=survey)
+    response = make_response(html)
+    response.set_cookie(f"completed_{survey_id}", "yes", max_age=20)
+    return response

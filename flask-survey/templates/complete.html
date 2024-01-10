@@ -2,7 +2,20 @@
 {% block title %} Survey Home {% endblock %}
 {% block content %}
 <p>Thank your for completing {{survey.title}}</p>
+<p>Responses:</p>
+<ul>
+{% for question in survey.questions %}
+<li>
+<p><b>{{question.question}}</b> {{responses[loop.index0]["choice"]}}, {{responses[loop.index0]["text"]}}</p>
+</li>
+{% endfor %}
+
+
+
+</ul>
 <form action="/">
     <button>Return Home</button>
 </form>
 {% endblock %}
+
+
