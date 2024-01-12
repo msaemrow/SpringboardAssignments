@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Boggle Game {% endblock %}
+
+{% block content %}
+<div id="top-div">
+<div id="boggle-div">
+<h3>Let's play boggle!</h3>
+<form class="newGameBtn">
+    <button>New Game</button>
+</form>
+<p>High Score:<b class="highscore">{{highscore}}</b></p>
+<p>Number of Games:<b class="num-games">{{num_games}}</b></p>
+<p>Current Score: <b class="curr-score"> 0 </b></p>
+<p class="curr-time-p">Time Remaining: <b class="curr-time"></b></p>
+<section id="'board">
+<table class="board">
+    <tbody>
+        {% for row in board %}
+            <tr>
+                {% for cell in row %}
+                    <td>{{cell}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form class="choose-word" method="POST">
+    <input name="word" type="text" class="word" autocomplete="off">
+    <button>Submit</button>
+</form>
+<p><b  class="msg"></b></p>
+</section>
+</div>
+<div id="word-list-div">
+<h3>Found Word List</h3>
+<ul class="word-list">
+</ul>
+</div>
+</div>
+
+
+{% endblock %}

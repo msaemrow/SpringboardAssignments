@@ -19,7 +19,10 @@ class Boggle():
         return words
 
     def make_board(self):
-        """Make and return a random boggle board."""
+        """Make and return a random boggle board.
+        y is height
+        i is width
+        """
 
         board = []
 
@@ -40,7 +43,7 @@ class Boggle():
         elif word_exists and not valid_word:
             result = "not-on-board"
         else:
-            result = "not-word"
+            result = "not-a-word"
 
         return result
 
