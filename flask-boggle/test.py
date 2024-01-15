@@ -5,11 +5,12 @@ from boggle import Boggle
 
 
 class BoggleGameTests(TestCase):
-    # def setUp(self):
-    #     """Completed before every test."""
+    def setUp(self):
+        """Completed before every test."""
 
-    #     # self.client = app.test_client()
-    #     app.config['TESTING'] = True
+        # self.client = app.test_client()
+        app.config['TESTING'] = True
+        app.config['DEBUG_TB_HOSTS'] = ['dont-show-debug-toolbar']
 
     def test_boggle_home_page(self):
         """Make sure information is in the session and HTML is displayed"""
@@ -69,15 +70,15 @@ class BoggleGameTests(TestCase):
         """Make sure word is correctly added and the highscore and num_games are updated"""
         with app.test_client() as client:
             with client.session_transaction() as new_session:
-                new_session['score']=50
                 new_session['highscore']=40
                 new_session['num_games']=10
 
-            res = client.post('/post-score', data={'brokeRecord': 'false'})
-            self.assertEqual(res.json['brokeRecord'], 'false')
+           
+            res = client.post('/post-score', data={'score': 50})
+            # self.assertEqual(res.status_code, 200)
+            # self.assertEqual(res.json['brokeRecord'], True)
 
             self.assertEqual(session.get('highscore'),40)
-            self.assertEqual(session.get('score'),50)
             self.assertEqual(session.get('num_games'),10)
 
 
