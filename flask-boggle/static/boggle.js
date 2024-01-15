@@ -8,7 +8,7 @@ class BoggleGame{
         this.words = new Set();
         this.board = $("#" + boardId)
 
-        this.timer = setInterval(this.tick.bind(this), 1000)
+        this.timer = setInterval(this.tick.bind(this), 1000);
 
         $('.choose-word').on('submit', this.handleSubmitClick.bind(this))
         // $('.newGameBtn').on('submit', this.handleNewGameClick.bind(this))
@@ -60,6 +60,7 @@ class BoggleGame{
 
         if(this.words.has(wordVal)) {
             this.showMessage(`Already found ${wordVal}. Find a new word`);
+            $word.val("")
             return;
         }
         const res = await axios.get("/check-word", {params: {word: wordVal}})
@@ -89,3 +90,4 @@ class BoggleGame{
         }
     }
 }
+
