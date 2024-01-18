@@ -1,24 +1,26 @@
 class BoggleGame{
-
     constructor(boardId, secs=60){
         this.secs = secs;
-        this.showTimer()
+        this.timer = 0;
+        this.showTimer();
 
         this.score = 0;
         this.words = new Set();
         this.board = $("#" + boardId)
 
-        this.timer = setInterval(this.tick.bind(this), 1000);
-
         $('.choose-word').on('submit', this.handleSubmitClick.bind(this))
-        // $('.newGameBtn').on('submit', this.handleNewGameClick.bind(this))
+        $('.newGameBtn').on('click', this.start.bind(this))
     }
 
-
-    // handleNewGameClick(e){
-    //     e.preventDefault();
-    //     let game = new BoggleGame("boggle", 10)
-    // }
+    start(){
+        console.log('started timer')
+        if(this.timer===0){
+            this.timer = 60;
+            this.timer = setInterval(this.tick.bind(this), 1000);
+        } else{
+            console.log('timer already running')
+        }
+    }
 
     showTimer(){
         $('.curr-time').text(this.secs)
@@ -30,6 +32,7 @@ class BoggleGame{
 
         if(this.secs === 0){
             clearInterval(this.timer);
+            this.timer = 0;
             console.log("GAME OVER");
             this.endOfGame();
         }
