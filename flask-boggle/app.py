@@ -18,7 +18,7 @@ def boggle_home_page():
     board = boggle_game.make_board()
     session['board'] = board
     highscore = session.get('highscore', 0)
-    num_games = session.get('num_games', 0)
+    num_games = session.get('num_games', 1)
     return render_template('game-page.html', board=board, num_games=num_games, highscore=highscore)
 
 @app.route('/check-word')
@@ -30,13 +30,19 @@ def check_word():
 
 @app.route('/post-score', methods=["POST"])
 def post_score():
-    score=request.json['score']
+    score=request.json.get('score')
     highscore=session.get('highscore', 0)
     num_games=session.get('num_games',0)
 
     session['num_games'] = num_games + 1
     session['highscore'] = max(score, highscore)
-
+    brokenRecord=score>highscore
+    print("true or false. new high score:", brokenRecord)
     return jsonify(brokeRecord=score > highscore)
 
-
+@app.route('/new-game')
+def new_game():
+    session.pop('board', default=None)
+    new_board = boggle_game.make_board()
+    session['board']=new_board
+    return render_template('game-page.html', board=new_board)

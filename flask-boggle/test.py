@@ -73,18 +73,11 @@ class BoggleGameTests(TestCase):
                 new_session['highscore']=40
                 new_session['num_games']=10
 
-           
-            res = client.post('/post-score', data={'score': 50})
-            # self.assertEqual(res.status_code, 200)
-            # self.assertEqual(res.json['brokeRecord'], True)
+            data={'score': 50}
+            res = client.post('/post-score', json=data)
+            self.assertEqual(res.status_code, 200)
+            self.assertEqual(res.json['brokeRecord'], True)
 
-            self.assertEqual(session.get('highscore'),40)
-            self.assertEqual(session.get('num_games'),10)
+            self.assertEqual(session.get('highscore'),50)
+            self.assertEqual(session.get('num_games'),11)
 
-
-            res2 = client.get('/')
-            html = res2.get_data(as_text=True)
-
-
-            self.assertIn('<p>High Score:<b class="highscore">40', html)
-            self.assertIn('<p>Number of Games:<b class="num-games">10', html)

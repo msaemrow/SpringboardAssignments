@@ -1,39 +1,48 @@
 class BoggleGame{
-    constructor(boardId, secs=60){
+    constructor(secs=60){
         this.secs = secs;
         this.timer = 0;
-        this.showTimer();
-
         this.score = 0;
         this.words = new Set();
-        this.board = $("#" + boardId)
+        this.updateTimer();
+
 
         $('.choose-word').on('submit', this.handleSubmitClick.bind(this))
-        $('.newGameBtn').on('click', this.start.bind(this))
+        $('.newGameBtn').on('submit', this.loadNewGame.bind(this))
+        $('.startTimer').on('click', this.startNewGame.bind(this))
+    }
+    
+    loadNewGame(){
+        console.log("STARTING NEW GAME")
+        this.clearWordList();
+
+        this.startTimer();
+        $('.curr-score').text(0)
+        $('.choose-word').show();
+        $('.msg').empty()
+        this.score = 0;
     }
 
-    start(){
-        console.log('started timer')
-        if(this.timer===0){
-            this.timer = 60;
-            this.timer = setInterval(this.tick.bind(this), 1000);
-        } else{
-            console.log('timer already running')
-        }
+    startTimer(){
+        $('.startTimer').hide()
+        this.words.clear();
+        console.log('started timer');
+        this.secs = 60;
+        this.updateTimer();
+        this.timer = setInterval(this.tick.bind(this), 1000);
     }
 
-    showTimer(){
+    updateTimer(){
         $('.curr-time').text(this.secs)
     }
 
     tick(){
         this.secs -= 1;
-        this.showTimer();
+        this.updateTimer();
 
         if(this.secs === 0){
             clearInterval(this.timer);
             this.timer = 0;
-            console.log("GAME OVER");
             this.endOfGame();
         }
     }
@@ -48,6 +57,10 @@ class BoggleGame{
 
     addWordToList(word){
         $('.word-list').append($('<li>', {text: word}))
+    }
+
+    clearWordList(){
+        $('.word-list').empty();
     }
 
     showMessage(message) {
@@ -83,14 +96,33 @@ class BoggleGame{
     }
 
     async endOfGame(){
-        $('.choose-word').hide();
-        const res = await axios.post("/post-score", {score: this.score});
-        if(res.data.brokeRecord) {
-            this.newHighScore();
-            this.showMessage(`New highscore! Score: ${this.score}`)
-        } else{
-            this.showMessage(`Final score: ${this.score}`)
+        if(this.secs === 0){
+            console.log("GAME OVER");
+            $('.choose-word').hide();
+            const res = await axios.post("/post-score", {score: this.score});
+            if(res.data.brokeRecord) {
+                this.newHighScore();
+                this.showMessage(`New highscore! Score: ${this.score}`)
+            } else{
+                this.showMessage(`Final score: ${this.score}`)
+            }
         }
+        console.log("GAME OVER");
+        $('.choose-word').hide();
+
+    }
+
+    startNewGame(e){
+        console.log("STARTING NEW GAME")
+        e.preventDefault();
+        this.clearWordList();
+
+        this.startTimer();
+        $('.curr-score').text(0)
+        $('.choose-word').show();
+        $('.msg').empty()
+        this.score = 0;
     }
 }
+
 
