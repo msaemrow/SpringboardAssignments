@@ -1,0 +1,21 @@
+{% extends 'index.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <h1>Details about {{user.first_name}} {{user.last_name}}</h1>
+    <p>First Name: {{user.first_name}}</p>
+    <p>Last Name: {{user.last_name}}</p>
+    <p>Profile Picture</p>
+    <img src="{{user.image_url}}" alt="Profile Picture">
+    <div>
+        <button>Edit</button><button>Delete</button>
+    </div>
+    <div>
+        <h2>Edit User Information</h2>
+        <form action="/users/{{user.id}}/edit" method="POST">
+            <input type="text" name="first_name" value="{{user.first_name}}" autocomplete="off">
+            <input type="text" name="last_name" value="{{user.last_name}}" autocomplete="off">
+            <input type="text" name="image_url" value="{{user.image_url}}" autocomplete="off">
+            <button>Update Profile</button>
+        </form>
+    </div>
+{% endblock %}

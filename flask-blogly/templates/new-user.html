@@ -1,0 +1,15 @@
+{% extends 'index.html' %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <h1>This is the spot to add a new user</h1>
+    <h2>Page Title</h2>
+    <h4>Content goes here</h4>
+
+    <h2>Create user account</h2>
+    <form action="/users/new" method="POST">
+        <input type="text" name="first_name" placeholder="first_name" autocomplete="off">
+        <input type="text" name="last_name" placeholder="last_name" autocomplete="off">
+        <input type="text" name="image_url" placeholder="image_url" autocomplete="off">
+        <button>Add User</button>
+    </form>
+{% endblock %}
