@@ -1,0 +1,92 @@
+body{
+    background-color:lightsalmon !important;
+}
+
+.recent-posts{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    height: 13rem;
+    text-align: center;
+}
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+}
+
+.edit-delete-btn{
+    display: flex;
+    justify-content: center;
+
+}
+
+.edit-user-page{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.post-edit-delete-btn{
+    display: flex;
+    justify-content: left;
+    margin: 5px;
+}
+
+.post{
+    margin: 0;
+}
+
+.btn{
+    margin: 5px;
+}
+
+.post-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#new-user-page-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-user-div{
+    width: 50%;
+}
+
+#new-post-div-top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#new-post-div{
+    width: 50%;
+}
+
+#edit-post-page-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#edit-post-form-div{
+    width:50%;
+}
+
+#curr-post-info-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a{
+    color: black !important;
+}

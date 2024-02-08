@@ -1,6 +1,6 @@
 from unittest import TestCase
 from app import app 
-from models import db, User
+from models import db, User, Post
 
 # Set up a test client
 app.config['TESTING'] = True
@@ -32,3 +32,20 @@ class UserModelTestCase(TestCase):
         user = User(first_name="John", last_name="Smith")
         self.assertEqual(user.get_full_name, "John Smith")
     
+class PostModelTestCase(TestCase):
+    """Tests the model for users"""
+
+    def setUp(self):
+        """clear any existing users"""
+        User.query.delete()
+    
+    def tearDown(self):
+        """clear any pending transactions"""
+        db.session.rollback()
+
+    def test_post_creation(self):
+        post = Post(title="This is the title", content="This is the content", created_at = "2024-02-07 11:16:17.895742", user_id=1)
+        self.assertEqual(post.title, "This is the title")
+        self.assertEqual(post.content, "This is the content")
+        self.assertEqual(post.created_at, "2024-02-07 11:16:17.895742")
+        self.assertEqual(post.user_id, 1)

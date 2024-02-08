@@ -1,0 +1,21 @@
+{% extends 'index.html' %} {% block title %}Blogly Post{% endblock %} {% block content
+%}
+<div class="post-div">
+  <h2>{{post.title}}</h2>
+  <h6 class="card-subtitle mb-2 text-muted">
+    Created by {{post.users.first_name}} on {{post.formatted_created_at}}
+  </h6>
+  <p>{{post.content}}</p>
+  <div class="post-edit-delete-btn">
+    <form action="/posts/{{post.id}}/edit">
+      <button class="btn btn-secondary">Edit Post</button>
+    </form>
+    <form action="/users/{{post.user_id}}">
+        <button class="btn btn-secondary">{{post.users.first_name}}'s Profile</button>
+      </form>
+    <form action="/posts/{{post.id}}/delete" method="POST">
+      <button class="btn btn-danger">Delete Post</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

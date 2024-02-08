@@ -1,0 +1,39 @@
+{% extends 'index.html' %} {% block title %}New Post{% endblock %} {% block
+content %}
+
+<h1>
+  Enter information below to create a new Blogly Post for {{user.get_full_name}}
+</h1>
+<div id="new-post-div-top">
+<div id="new-post-div">
+<form action="" method="POST">
+  <div class="form-group">
+    <label for="title">Post Title</label>
+    <input
+      type="text"
+      class="form-control"
+      id="title"
+      name="title"
+      autocomplete="off"
+      required
+    />
+ 
+  </div>
+  <div class="form-group">
+    <label for="content">Post Content</label>
+    <!-- <input
+      type="text"
+      class="form-control"
+      id="content"
+      name="content"
+      autocomplete="off"
+      required
+    /> -->
+    <textarea class="form-control" name="content" id="post-content" name="content" cols="90" rows="10"  autocomplete="off"
+    required></textarea>
+  </div>
+  <button class="btn btn-dark">Create post</button>
+</form>
+</div>
+</div>
+{% endblock %}

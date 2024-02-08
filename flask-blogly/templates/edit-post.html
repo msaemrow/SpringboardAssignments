@@ -1,0 +1,56 @@
+{% extends 'index.html' %} {% block title %}Edit Post{% endblock %} {% block
+content %}
+<div id="edit-post-page-div">
+<div id="edit-post-form-div">
+  <h2>Edit Post Information</h2>
+  <form action="/posts/{{post.id}}/edit" method="POST">
+    <div class="form-group">
+      <label for="title">Updated Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        value="{{post.title}}"
+        autocomplete="off"
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">Updated Content</label>
+      <!-- <input
+        type="text"
+        class="form-control"
+        id="content"
+        name="content"
+        value="{{post.content}}"
+        autocomplete="off"
+      /> -->
+      <textarea class="form-control" name="content" id="post-content" name="content" cols="90" rows="5"  autocomplete="off"
+      required>{{ post.content}}</textarea>
+    </div>
+    <button class="btn btn-dark">Update Post</button>
+  </form>
+</div>
+<div id="curr-post-info-div">
+  <h3>Current Post Information</h3>
+  <h4>{{post.title}}</h4>
+  <h6 class="card-subtitle mb-2 text-muted">
+    Created by {{post.users.first_name}} on {{post.formatted_created_at}}
+  </h6>
+  <p>{{post.content}}</p>
+  <div class="post-edit-delete-btn">
+    <form action="/posts/{{post.id}}/edit">
+      <button class="btn btn-secondary">Edit Post</button>
+    </form>
+    <form action="/users/{{post.user_id}}">
+      <button class="btn btn-secondary">
+        {{post.users.first_name}}'s Profile
+      </button>
+    </form>
+    <form action="/posts/{{post.id}}/delete" method="POST">
+      <button class="btn btn-danger">Delete Post</button>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

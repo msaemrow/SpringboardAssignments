@@ -1,0 +1,17 @@
+{% extends 'index.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Recent Posts</h1>
+<div class="recent-posts">
+{% for post in posts %}
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+        <h5 class="card-title"> {{ post.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Created by {{post.users.first_name}} on {{post.formatted_created_at}}</h6>
+        <p class="card-text">{{ post.content }}</p>
+        <a href="/users/{{post.user_id}}" class="card-link">View all of {{post.users.first_name}} details</a>
+        </div>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

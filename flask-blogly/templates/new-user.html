@@ -1,15 +1,47 @@
-{% extends 'index.html' %}
-{% block title %}Home Page{% endblock %}
-{% block content %}
-    <h1>This is the spot to add a new user</h1>
-    <h2>Page Title</h2>
-    <h4>Content goes here</h4>
+{% extends 'index.html' %} {% block title %}New User{% endblock %} {% block
+content %}
 
-    <h2>Create user account</h2>
+<div>
+  <h1>Enter information below to create a new Blogly User</h1>
+</div>
+<div id="new-user-page-div">
+  <div id="new-user-div">
     <form action="/users/new" method="POST">
-        <input type="text" name="first_name" placeholder="first_name" autocomplete="off">
-        <input type="text" name="last_name" placeholder="last_name" autocomplete="off">
-        <input type="text" name="image_url" placeholder="image_url" autocomplete="off">
-        <button>Add User</button>
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="first_name"
+          name="first_name"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="last_name"
+          name="last_name"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="image_url">Add a link to a profile picture</label>
+        <input
+          type="text"
+          class="form-control"
+          id="image_url"
+          name="image_url"
+          placeholder="This is optional"
+          autocomplete="off"
+        />
+      </div>
+      <button class="btn btn-dark">Add user</button>
     </form>
+  </div>
+</div>
 {% endblock %}

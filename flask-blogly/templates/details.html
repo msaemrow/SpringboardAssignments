@@ -1,18 +1,34 @@
 {% extends 'index.html' %}
-{% block title %}Home Page{% endblock %}
+{% block title %}{{user.get_full_name}}{% endblock %}
 {% block content %}
-    <h1>Details about {{user.get_full_name}}</h1>
-    <p>First Name: {{user.first_name}}</p>
-    <p>Last Name: {{user.last_name}}</p>
-    <p>Profile Picture</p>
+<div class="card" style="width: 18rem;">
     <img src="{{user.image_url}}" alt="Profile Picture">
-    <div>
+    <div class="card-body">
+      <h5 class="card-title">{{user.get_full_name}}</h5>
+    <div class="edit-delete-btn">
     <form action="/users/{{ user.id }}/edit">
-        <button>Edit</button>
+        <button class="btn btn-warning">Edit</button>
     </form>
-    <form action="/users/{{ user.id }}/edit" method="POST">
-        <button>Delete</button>
+    <form action="/users/{{ user.id }}/delete" method="POST">
+        <button class="btn btn-danger">Delete</button>
     </form>
     </div>
+    <h3>Posts:</h3>
+        {% for post in user.posts %}
+        <p class="card-text post"><a href="/posts/{{ post.id }}"> {{ post.title }} </a></p>
+        {% endfor %}
+    <form action="/users/{{ user.id }}/posts/new">
+        <button class="btn btn-success">Add Post</button>
+    </form>
+</div>
+    </div>
+  </div>
+<!-- <div>
+    <h3>Profile Picture</h3>
+    <img src="{{user.image_url}}" alt="Profile Picture">
     <p>Image URL: <a href="{{user.image_url}}">Profile Picture</a></p>
+</div>
+<div> -->
+
+
 {% endblock %}
