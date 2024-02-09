@@ -1,0 +1,103 @@
+{% extends 'index.html' %}
+{% block title %}{{pet.name}} Details{% endblock %}
+{% block content %}
+<div id="pet-details-page-div">
+<div id="pet-individual-div">
+    <h1>{{ pet.name}} </h1>
+    <h3>Species: {{ pet.species }}</h3>
+    <h3>Age: {{ pet.age }}</h3>
+    <img src="{{pet.photo_url}}" alt="Image of pet">
+    {% if pet.available == True %}
+        <h4>{{ pet.name }} is available for adoption</h4>
+    {% else %}
+        <h4>{{ pet.name }} is pending adoption</h4>
+    {% endif %}
+    <h3>Notes:</h3>
+    <p>{{ pet.notes }}</p>
+</div>
+<div id="edit-pet-div">
+    <h4>Edit Pet Information</h4>
+    <div class="flash-message-div">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <h5>{{ message }}</h5>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <form id="pet-edit-form" action="/pet/{{pet.id}}/edit" method="POST">
+      <div class="form-group">
+        <label for="name">Pet Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          name="name"
+          value="{{pet.name}}"
+          autocapitalize="on"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="available">Available for adoption</label>
+        <select name="available" id="available" required>
+            <option value="" selected disabled>Select availability</option>
+            <option value=True >True</option>
+            <option value=False >False</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="species">Pet Species</label>
+        <select name="species" id="species" required>
+            <option value="" selected disabled>Select a species</option>
+            <option value="duck">Duck</option>
+            <option value="dog">Dog</option>
+            <option value="parrot">Parrot</option>
+            <option value="rabbit">Rabbit</option>
+            <option value="beaver">Beaver</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="photo_url">Profile Picture URL</label>
+        <input
+          type="url"
+          class="form-control"
+          id="photo_url"
+          name="photo_url"
+          value="{{pet.photo_url}}"
+          autocomplete="off"
+          placeholder="This field is optional"
+        />
+      </div>
+      <div class="form-group">
+        <label for="age">Pet Age</label>
+        <input
+          type="number"
+          class="form-control"
+          id="age"
+          name="age"
+          value={{pet.age}}
+          autocomplete="off"
+          min=0
+          max=30
+          step="1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="notes">Notes about the Pet</label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="notes"
+          name="notes"
+          autocapitalize="on"
+          autocomplete="off"
+        >{{pet.notes}}</textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Update Pet Info</button>
+    </form>
+    </div>
+</div>
+{% endblock %}

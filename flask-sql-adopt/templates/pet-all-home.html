@@ -1,17 +1,48 @@
 {% extends 'index.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
+<div class="flash-message-div">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <h5>{{ message }}</h5>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
 <h1>All Pets</h1>
-<div id="pet-list-div">
+<h4>Click on a picture for more details about a pet</h4>
+<div id="all-pet-div">
+<div class="available-pet-section-div">
+<h3 class="all-pets-title">Pets Available for Adoption</h3>
+<div class="available-pet-card-top-div">
 {% for pet in pets %}
-<div id="pet-individual-div">
-    <img src="{{pet.photo_url}}" alt="Image of pet">
+<div class="available-pet-card-div">
     {% if pet.available == True %}
+    <a href="/pet/{{pet.id}}">
+        <img src="{{pet.photo_url}}" alt="Image of pet">
+    </a>
         <h4>{{ pet.name }} is available</h4>
-    {% else %}
+    {% endif %}
+</div>
+{% endfor %}
+</div>
+</div>
+
+<div class="pending-pet-section-div">
+<h3 class="all-pets-title">Pets Pending Adoption</h3>
+<div class="pending-pet-card-top-div">
+{% for pet in pets %}
+<div class="pending-pet-card-div">
+    {% if pet.available == False %}
+    <a href="/pet/{{pet.id}}">
+        <img src="{{pet.photo_url}}" alt="Image of pet">
+    </a>
         <h4>{{ pet.name }} is pending adoption</h4>
     {% endif %}
 </div>
 {% endfor %}
+</div>
 </div>
 {% endblock %}
