@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import text
-from models import db, connect_db, User, Post
+from models import db, connect_db, User, Post, Tag, PostTag
 import datetime
 
 app = Flask(__name__)
@@ -118,3 +118,26 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     return redirect(f"/users/{post.user_id}")
+
+################# routes for tags #################################
+
+@app.route('/tags')
+def list_all_tags():
+    tags = Tag.query.all()
+    return render_template('/tags/tags-list-all.html', tags=tags)
+
+@app.route('/tags/<int:tag_id>')
+def show_tag_details(tag_id):
+    tag = Tag.query.get(tag_id)
+    return render_template('/tags/tags-details.html', tag=tag)
+
+@app.route('/tags/new')
+def create_new_tag():
+    return render_template('/tags/tags-new.html')
+
+@app.route('/tags/new', methods=["POST"])
+def process_create_new_tag():
+    new_tag = Tag(name=request.form['name'])
+    db.session.add(new_tag)
+    db.session.commit()
+    return redirect('/tags')

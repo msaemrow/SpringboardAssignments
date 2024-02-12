@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+{% block title %}Details about {{tag.name}} tag{% endblock %}
+{% block content %}
+<h3>{{tag.name}}</h3>
+<form action="/tags/{{ tag.id }}/edit">
+    <button class="btn btn-warning">Edit Tag</button>
+</form>
+<form action="/tags/{{ tag.id }}/delete" method="POST">
+    <button class="btn btn-danger">Delete Tag</button>
+</form>
+</div>
+{% endblock %}

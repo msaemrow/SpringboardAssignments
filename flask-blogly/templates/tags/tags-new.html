@@ -1,0 +1,26 @@
+{% extends 'index.html' %} {% block title %}New Tag{% endblock %} {% block
+    content %}
+    
+    <div>
+      <h1>Create a new tag for a Blogly Post</h1>
+    </div>
+    <div id="new-user-page-div">
+      <div id="new-user-div">
+        <form action="/tags/new" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button class="btn btn-dark">Add Tag</button>
+        </form>
+      </div>
+    </div>
+    {% endblock %}
+    

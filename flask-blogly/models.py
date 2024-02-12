@@ -55,7 +55,39 @@ class Post(db.Model):
                         db.ForeignKey('users.id'),
                         nullable=False)
     
+    tags = db.relationship('Tag', secondary='post_tags', backref='posts')
+
     @property
     def formatted_created_at(self):
         return self.created_at.strftime("%b %-d %Y")
+
+class Tag(db.Model):
+    """model for a tag that goes on a post"""
+
+    __tablename__ = 'tags'
+    id = db.Column(db.Integer,
+                   primary_key=True,
+                   autoincrement=True)
+    name = db.Column(db.Text, unique=True, nullable=False)
+
+    # posts = db.relationship('PostTag', backref='tags')
+
+    def __repr__(self):
+        """Easier to read representation for tag model"""
+        return f"<Tag name = {self.name}>"   
+
+class PostTag(db.Model):
+    """model for a tag that goes on a post"""
+
+    __tablename__ = 'post_tags'
+    post_id = db.Column(db.Integer,
+                   db.ForeignKey('posts.id'),
+                   primary_key=True)
+    tag_id = db.Column(db.Integer,
+                       db.ForeignKey('tags.id'),
+                       primary_key=True)
+
+    def __repr__(self):
+        """Easier to read representation for user"""
+        return f"<POST_TAG Post ID: {self.post_id} Tag ID: {self.tag_id}>"   
     
