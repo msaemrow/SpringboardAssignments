@@ -1,5 +1,16 @@
 body{
     background-color:lightsalmon !important;
+    padding-top: 40px !important;
+}
+
+.home-page-tags-div{
+    display:flex;
+    justify-content: center;
+}
+
+.home-page-tags-div p{
+    margin: auto 0;
+    font-weight: 500;
 }
 
 .recent-posts{
@@ -89,4 +100,35 @@ h1{
 
 a{
     color: black !important;
+}
+
+#post-tags-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#post-tags-div p{
+    margin: auto;
+}
+
+.list-tags-form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.tags-header{
+    text-align: center;
+}
+
+#tag-details-posts-div{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    font-weight:400;
+}
+
+#tag-details-posts-div a{
+    margin: 3px 0;
 }

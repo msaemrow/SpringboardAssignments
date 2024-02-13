@@ -1,6 +1,8 @@
 {% extends 'index.html' %}
 {% block title %}Details about {{tag.name}} tag{% endblock %}
 {% block content %}
+<div id="tag-details-page-div">
+<div id="tag-details-header-div">
 <h3>{{tag.name}}</h3>
 <form action="/tags/{{ tag.id }}/edit">
     <button class="btn btn-warning">Edit Tag</button>
@@ -8,5 +10,12 @@
 <form action="/tags/{{ tag.id }}/delete" method="POST">
     <button class="btn btn-danger">Delete Tag</button>
 </form>
+</div>
+<div id="tag-details-posts-div">
+    <h3>Posts tagged with <em>{{tag.name}}</em></h3>
+    {% for post in tag.posts %}
+    <a href="/posts/{{post.id}}">{{post.title}}</a>
+    {% endfor %}
+</div>
 </div>
 {% endblock %}

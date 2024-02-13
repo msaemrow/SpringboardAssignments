@@ -6,7 +6,7 @@ content %}
 </h1>
 <div id="new-post-div-top">
 <div id="new-post-div">
-<form action="" method="POST">
+<form action="/users/{{user.id}}/posts/new" method="POST">
   <div class="form-group">
     <label for="title">Post Title</label>
     <input
@@ -17,21 +17,21 @@ content %}
       autocomplete="off"
       required
     />
- 
   </div>
   <div class="form-group">
     <label for="content">Post Content</label>
-    <!-- <input
-      type="text"
-      class="form-control"
-      id="content"
-      name="content"
-      autocomplete="off"
-      required
-    /> -->
     <textarea class="form-control" name="content" id="post-content" name="content" cols="90" rows="10"  autocomplete="off"
     required></textarea>
   </div>
+  <h5 class="tags-header">Tags</h5>
+  <div class="list-tags-form">
+  {% for tag in tags %}
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="{{tag.id}}" value="{{tag.id}}" name="tags">
+    <label class="form-check-label" for="{{tag.id}}">{{tag.name}}</label>
+  </div>
+  {% endfor %}
+    </div>
   <button class="btn btn-dark">Create post</button>
 </form>
 </div>
