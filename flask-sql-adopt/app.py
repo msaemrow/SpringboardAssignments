@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy import text
 from models import Pet, db, connect_db
+from form import PetInfoForm
 
 app = Flask(__name__)
 
@@ -21,17 +22,22 @@ def home_page():
     pets = Pet.query.all()
     return render_template('pet-all-home.html', pets=pets)
 
-@app.route('/add')
-def add_pet():
-    return render_template('pet-new.html')
-
-@app.route('/add', methods=["POST"])
+@app.route('/add', methods=["GET", "POST"])
 def process_add_pet():
-    new_pet = Pet(name=request.form['name'], species=request.form['species'], photo_url=request.form['photo_url'], age=request.form['age'], notes=request.form['notes'])
-    db.session.add(new_pet)
-    db.session.commit()
-    flash(f"Successfully added {new_pet.name}. Click on their photo below for more details", 'success')
-    return redirect('/')
+    form = PetInfoForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        species = form.price.data
+        print(f"Added {name} and they are a ${species}")
+        return redirect('/')
+    else:    
+        return render_template('pet-new.html', form=form)
+
+    # new_pet = Pet(name=request.form['name'], species=request.form['species'], photo_url=request.form['photo_url'], age=request.form['age'], notes=request.form['notes'])
+    # db.session.add(new_pet)
+    # db.session.commit()
+    # flash(f"Successfully added {new_pet.name}. Click on their photo below for more details", 'success')
+    # return redirect('/')
 
 @app.route('/pet/<int:pet_id>')
 def display_pet_info(pet_id):

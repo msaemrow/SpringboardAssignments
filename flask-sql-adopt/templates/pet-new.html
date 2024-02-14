@@ -2,7 +2,7 @@
 content %}
 <div id="add-pet-page-div">
 <h1>Add a new pet for adoption</h1>
-<div id="add-pet-div">
+<!-- <div id="add-pet-div">
 <form action="/add" method="POST">
   <div class="form-group">
     <label for="name">Pet Name</label>
@@ -65,6 +65,17 @@ content %}
     ></textarea>
   </div>
   <button type="submit" class="btn btn-primary">Add Pet</button>
+</form>
+</div> -->
+<div id="add-pet-div">
+<form  method="POST">
+  {{ form.hidden_tag() }}
+  {% for field in form if field.widget.input_type != 'hidden' %}
+  <div class="form-group">
+  {{field.label}}{{field(class="form-control")}}
+  </div>
+  {% endfor %}
+  <button class="btn btn-primary btn-lg">Add Pet</button>
 </form>
 </div>
 </div>
