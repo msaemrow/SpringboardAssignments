@@ -7,7 +7,7 @@
     <h3>Species: {{ pet.species }}</h3>
     <h3>Age: {{ pet.age }}</h3>
     <img src="{{pet.photo_url}}" alt="Image of pet">
-    {% if pet.available == True %}
+    {% if pet.available == 't' %}
         <h4>{{ pet.name }} is available for adoption</h4>
     {% else %}
         <h4>{{ pet.name }} is pending adoption</h4>
@@ -26,78 +26,19 @@
         {% endif %}
         {% endwith %}
     </div>
-    <form id="pet-edit-form" action="/pet/{{pet.id}}/edit" method="POST">
-      <div class="form-group">
-        <label for="name">Pet Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="name"
-          name="name"
-          value="{{pet.name}}"
-          autocapitalize="on"
-          autocomplete="off"
-          required
-        />
+    <div id="pet-edit-form">
+      <form  method="POST">
+        {{ form.hidden_tag() }}
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        <div class="form-group">
+        {{field.label}}{{field(class="form-control")}}
+        {% for err in field.errors %}
+        {{err}}
+        {% endfor %}
+        </div>
+        {% endfor %}
+        <button class="btn btn-primary btn-lg">Update Pet</button>
+      </form>
       </div>
-      <div class="form-group">
-        <label for="available">Available for adoption</label>
-        <select name="available" id="available" required>
-            <option value="" selected disabled>Select availability</option>
-            <option value=True >True</option>
-            <option value=False >False</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="species">Pet Species</label>
-        <select name="species" id="species" required>
-            <option value="" selected disabled>Select a species</option>
-            <option value="duck">Duck</option>
-            <option value="dog">Dog</option>
-            <option value="parrot">Parrot</option>
-            <option value="rabbit">Rabbit</option>
-            <option value="beaver">Beaver</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="photo_url">Profile Picture URL</label>
-        <input
-          type="url"
-          class="form-control"
-          id="photo_url"
-          name="photo_url"
-          value="{{pet.photo_url}}"
-          autocomplete="off"
-          placeholder="This field is optional"
-        />
-      </div>
-      <div class="form-group">
-        <label for="age">Pet Age</label>
-        <input
-          type="number"
-          class="form-control"
-          id="age"
-          name="age"
-          value={{pet.age}}
-          autocomplete="off"
-          min=0
-          max=30
-          step="1"
-        />
-      </div>
-      <div class="form-group">
-        <label for="notes">Notes about the Pet</label>
-        <textarea
-          type="text"
-          class="form-control"
-          id="notes"
-          name="notes"
-          autocapitalize="on"
-          autocomplete="off"
-        >{{pet.notes}}</textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Update Pet Info</button>
-    </form>
-    </div>
 </div>
 {% endblock %}

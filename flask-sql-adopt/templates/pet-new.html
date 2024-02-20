@@ -2,77 +2,15 @@
 content %}
 <div id="add-pet-page-div">
 <h1>Add a new pet for adoption</h1>
-<!-- <div id="add-pet-div">
-<form action="/add" method="POST">
-  <div class="form-group">
-    <label for="name">Pet Name</label>
-    <input
-      type="text"
-      class="form-control"
-      id="name"
-      name="name"
-      autocapitalize="on"
-      autocomplete="off"
-      required
-    />
-  </div>
-  <div class="form-group">
-    <label for="species">Pet Species</label>
-    <select name="species" id="species">
-        <option value="" selected disabled>Select a species</option>
-        <option value="cat">Duck</option>
-        <option value="dog">Dog</option>
-        <option value="porcupine">Parrot</option>
-        <option value="porcupine">Rabbit</option>
-        <option value="porcupine">Beaver</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="photo_url">Profile Picture URL</label>
-    <input
-      type="url"
-      class="form-control"
-      id="photo_url"
-      name="photo_url"
-      autocomplete="off"
-      placeholder="This field is optional"
-      value="https://i.pinimg.com/564x/36/51/6d/36516d2965ed716b6061e303a3f5a35c.jpg"
-    />
-  </div>
-  <div class="form-group">
-    <label for="age">Pet Age</label>
-    <input
-      type="number"
-      class="form-control"
-      id="age"
-      name="age"
-      autocomplete="off"
-      placeholder="Add age in years"
-      min=0
-      max=30
-      step="1"
-    />
-  </div>
-  <div class="form-group">
-    <label for="notes">Notes about the Pet</label>
-    <textarea
-      type="text"
-      class="form-control"
-      id="notes"
-      name="notes"
-      autocapitalize="on"
-      autocomplete="off"
-    ></textarea>
-  </div>
-  <button type="submit" class="btn btn-primary">Add Pet</button>
-</form>
-</div> -->
 <div id="add-pet-div">
 <form  method="POST">
   {{ form.hidden_tag() }}
   {% for field in form if field.widget.input_type != 'hidden' %}
   <div class="form-group">
   {{field.label}}{{field(class="form-control")}}
+  {% for err in field.errors %}
+  {{err}}
+  {% endfor %}
   </div>
   {% endfor %}
   <button class="btn btn-primary btn-lg">Add Pet</button>
