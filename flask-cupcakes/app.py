@@ -32,7 +32,8 @@ def get_single_cupcake(id):
 
 @app.route('/api/cupcakes', methods=["POST"])
 def create_cupcake():
-    new_cupcake=(Cupcake(flavor=request.json["flavor"], size=request.json["size"], rating=request.json["rating"], image=request.json["image"]))
+    data=request.json
+    new_cupcake=Cupcake(flavor=data["flavor"], size=data["size"], rating=data["rating"], image=data["image"] or None)
     db.session.add(new_cupcake)
     db.session.commit()
     return (jsonify(cupcake=new_cupcake.serialize()), 201)
