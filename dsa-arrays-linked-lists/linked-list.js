@@ -177,39 +177,53 @@ class LinkedList {
     
     if(this.length === 0) return null;
 
-    if(this.length === 1){
+    if(idx === 0){
       this.length -= 1;
-      let removedNode = this.head;
-      this.head = null;
-      this.tail = null;
+      let removedNode = this.head.val;
+      this.head = this.head.next.val;
+      if(this.length < 2) this.tail = this.head
       return removedNode;
     } 
     
     let count = 0;
     let curr = this.head;
 
-    while(curr !== null && count !== idx-1){
-      curr = curr.next;
-      count += 1;
+    while(count < idx - 1){
+      if(curr===null){
+        throw new Error("Invalid list index")
+      }
+        curr = curr.next;
+        count += 1;
     }
-    //need to figure out how to handle lists with a length of 2
-    if(this.length <= 2){
-      let removedNode = curr
-      curr.next = curr.next.next;
+
+    if(idx === this.length - 1){
+      let removedNode = curr.next.val;
+      curr.next = null;
+      this.tail = curr;
       this.length -= 1;
       return removedNode;
-    }else{
-      let removedNode = curr.next;
-      curr.next = curr.next.next;
-      this.length -= 1;
-      return removedNode;
     }
+
+    let removedNode = curr.next.val;
+    curr.next = curr.next.next;
+    this.length -= 1;
+    return removedNode;
 
   }
   /** average(): return an average of all values in the list */
 
   average() {
-    
+    if(this.length === 0) return 0;
+
+    let curr = this.head;
+    let total = 0;
+
+    while(curr !== null){
+      total += curr.val;
+      curr = curr.next;
+    }
+
+    return total / this.length;
   }
 }
 

@@ -126,12 +126,12 @@ describe("insertAt", function() {
 
 describe("removeAt", function() {
   it("removes from 1-item list", function() {
-    let lst = new LinkedList(["a", "b"]);
+    let lst = new LinkedList([5, 10, 15]);
 
-    lst.removeAt(0);
-    expect(lst.length).toBe(0);
-    expect(lst.head).toBe(null);
-    expect(lst.tail).toBe(null);
+    lst.removeAt(2);
+    expect(lst.length).toBe(2);
+    expect(lst.head.val).toBe(5);
+    expect(lst.tail.val).toBe(10);
   });
 });
 
