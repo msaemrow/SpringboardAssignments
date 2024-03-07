@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block title %}User Page{% endblock %}
+{% block content %}
+<h1>This is the user page</h1>
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">Username: {{user.username}}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">Email: {{user.email}}</h6>
+      <form action="/users/{{session['username']}}/delete"method="POST">
+        <button class="btn btn-link">Delete User</button>
+      </form>
+      
+      <div class="card" style="width: 100%;">
+        <div class="card-header text-center">
+            User Feedback
+        </div>
+        <ul class="list-group list-group-flush">
+        {% for feedback in user.feedback %}
+          <li class="list-group-item">{{feedback.title}} <small>{{feedback.content}}</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %} 
