@@ -15,3 +15,12 @@ h1{
 #login-form{
     width: 50%;
 }
+
+#feedback-form{
+    width: 50%;
+}
+
+#admin-div{
+    display: flex;
+    justify-content: space-evenly;
+}

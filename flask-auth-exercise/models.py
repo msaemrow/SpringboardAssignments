@@ -17,7 +17,7 @@ class User(db.Model):
 
     def __repr__(self):
         """Easier to read representation for user"""
-        return f"<User {self.id} {self.first_name} {self.last_name}>"  
+        return f"<User {self.id} {self.first_name} {self.last_name} Admin: {self.is_admin}>"  
 
     id = db.Column(db.Integer,
                    primary_key=True,
@@ -33,6 +33,8 @@ class User(db.Model):
                          nullable=False)
     last_name=db.Column(db.String(30),
                          nullable=False)
+    is_admin=db.Column(db.Boolean,
+                       default=False)
     
     feedback = db.relationship('Feedback', backref="users", cascade='all, delete-orphan')
     

@@ -1,25 +1,99 @@
-{% extends 'index.html' %}
-{% block title %}User Page{% endblock %}
-{% block content %}
-<h1>This is the user page</h1>
-<div class="card" style="width: 18rem;">
-    <div class="card-body">
-      <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">Username: {{user.username}}</h6>
-      <h6 class="card-subtitle mb-2 text-muted">Email: {{user.email}}</h6>
-      <form action="/users/{{session['username']}}/delete"method="POST">
-        <button class="btn btn-link">Delete User</button>
-      </form>
-      
-      <div class="card" style="width: 100%;">
-        <div class="card-header text-center">
-            User Feedback
-        </div>
-        <ul class="list-group list-group-flush">
+{% extends 'index.html' %} {% block title %}User Page{% endblock %} {% block
+content %}
+<div class="card m-4" style="width: 18rem">
+  <div class="card-body">
+    <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Username: {{user.username}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Email: {{user.email}}</h6>
+    <form action="/users/{{session['username']}}/delete" method="POST">
+      <button class="btn btn-link">Delete User</button>
+    </form>
+
+    <div class="card" style="width: 100%">
+      <div class="card-header text-center">User Feedback</div>
+      <ul class="list-group list-group-flush">
         {% for feedback in user.feedback %}
-          <li class="list-group-item">{{feedback.title}} <small>{{feedback.content}}</small></li>
-        </ul>
-      </div>
+        <li class="list-group-item">
+          {{feedback.title}}
+          <form
+          style="display: inline"
+          action="/feedback/{{feedback.id}}/update"
+          method="POST"
+        >
+          <button class="btn btn-small">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+        </form>
+          <form
+            style="display: inline"
+            action="/feedback/{{feedback.id}}/delete"
+            method="POST"
+          >
+            <button class="btn btn-small">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </form>
+          <br /><small>{{feedback.content}}</small>
+        </li>
+        {% endfor %}
+      </ul>
     </div>
   </div>
-{% endblock %} 
+</div>
+
+
+{% if user.is_admin %}
+<div id="admin-div">
+<div class="card m-4" style="width: 18rem">
+    <div class="card" style="width: 100%">
+      <div class="card-header text-center">All Users</div>
+        {% for idv_user in all_users %}
+        <div class="card-body">
+            <h5 class="card-title">{{idv_user.first_name}} {{idv_user.last_name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Username: {{idv_user.username}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Email: {{idv_user.email}}</h6>
+            <h6 class="card-subtitle mb-2 text-muted">Admin: {{idv_user.is_admin}}</h6>
+            <form action="/users/{{idv_user.username}}/{{user.username}}/delete" method="POST">
+              <button class="btn btn-link">Delete User</button>
+            </form>
+        </div>
+        {% endfor %}
+
+    </div>
+    </div>
+
+<div class="card m-4" style="width: 18rem">
+<div class="card" style="width: 100%">
+  <div class="card-header text-center">All Feedback</div>
+  <ul class="list-group list-group-flush">
+    {% for feedback in all_feedback %}
+    <li class="list-group-item">
+      {{feedback.title}}
+      <form
+      style="display: inline"
+      action="/feedback/{{feedback.id}}/{{user.username}}/update"
+      method="POST"
+    >
+      <button class="btn btn-small">
+        <i class="fa-solid fa-pen-to-square"></i>
+      </button>
+    </form>
+      <form
+        style="display: inline"
+        action="/feedback/{{feedback.id}}/{{user.username}}/delete"
+        method="POST"
+      >
+        <button class="btn btn-small">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </form>
+      <br /><small>By: {{feedback.username}}</small>
+      <br /><small>{{feedback.content}}</small>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+</div>
+</div>
+{% endif %}
+{% endblock %}
