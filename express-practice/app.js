@@ -1,10 +1,16 @@
 const express = require('express')
 
+//in order to use express router, need to set up router in other file first, then import into main file
+const userRoutes = require('./userRoutes')
+
 const app = express();
-const port = 3000;
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+//sets route from userRoutes file. can change route prefix at any time
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
     res.send("<h1>HOME PAGE</h1>")
@@ -34,8 +40,4 @@ app.get('/chickens', function createChicken(req, res){
     res.send("<h1>CREATED Chicken (not really)</h1>")
 })
 
-
-
-app.listen(port, function(){
-    console.log(`App on port ${port}`)
-})
+module.exports = app;
