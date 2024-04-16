@@ -8,5 +8,4 @@ function findLongestWord(words, i=0){
     }
 }
 
-let wordList = ["hi", "minnesota", "hello", "hola", "bananas"];
-
+module.exports = findLongestWord;

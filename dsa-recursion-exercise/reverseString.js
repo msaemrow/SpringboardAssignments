@@ -8,4 +8,5 @@ function reverseString(str, i=0){
     return subStr + str[i]
 }
 
-const reverseWord = "minnesota";
+
+module.exports = reverseString;

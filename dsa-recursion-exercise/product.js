@@ -7,14 +7,6 @@ function findProduct(nums, i=0){
     }   
 }
 
-let numArr = [2,3,4]
+let numArr = [2,3,4,10]
 
-function findProductRecursive(nums) {
-    if (nums.length === 0) {
-        return 1;
-    } else {
-        return nums[0] * findProductRecursive(nums.slice(1));
-    }
-}
-
-let product = findProductRecursive(numArr)
+module.exports = findProduct;

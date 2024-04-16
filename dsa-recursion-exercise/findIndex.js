@@ -9,3 +9,5 @@ function findIndex(arr, word, i=0){
 }
 
 const arr = ["apple", "banana", "cherry", "date"];
+
+module.exports = findIndex;

@@ -9,3 +9,5 @@ function everyOtherChar(str, i=0, result=""){
 
 
 const word = "Hello world!";
+
+module.exports = everyOtherChar;
