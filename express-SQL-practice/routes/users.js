@@ -6,7 +6,7 @@ const ExpressError = require("../expressError")
 
 
 
-//GET OR VIEW ROUTE
+//GET OR VIEW ALL ROUTE
 router.get('/all',async function (req, res, next) {
     try{
         const results = await db.query(`SELECT * FROM users`);
@@ -16,7 +16,7 @@ router.get('/all',async function (req, res, next) {
     }
 })
 
-
+//GET OR VIEW BY ID ROUTE
 router.get('/:id', async (req, res, next) => {
     try{
         const { id } = req.params;

@@ -64,18 +64,5 @@ router.delete('/:id', async (req, res, next) => {
     }
 })
 
-//GET ALL INVOICES FOR A COMPANY
-router.get('/company/:code', async (req, res, next) => {
-    try{
-        const {code} = req.params;
-        const results = await db.query(`SELECT * FROM invoices WHERE comp_code=$1`, [code]);
-        if (results.rows.length === 0){
-            throw new ExpressError(`No invoices associate with company >>> ${code}`, 404)            
-        }
-        return res.json({invoices: results.rows})
-    } catch(e){
-        return next(e);
-    }
-})
 
 module.exports = router;
