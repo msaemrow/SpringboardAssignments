@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const slugify = require('slugify');
 const ExpressError = require('../expressError')
 
 //GET ALL COMPANIES
@@ -17,14 +18,29 @@ router.get('/', async (req, res, next) => {
 router.get('/:code', async (req, res, next) => {
     try{
         const { code } = req.params;
-        const compResults = await db.query('SELECT code, name, description FROM companies WHERE code=$1', [code]);
+        const compResults = await db.query(`
+        SELECT 
+        c.code, 
+        c.name, 
+        c.description, 
+        array_agg(ci.industry_code) AS industries
+    FROM 
+        companies c
+    LEFT JOIN 
+        company_industries ci ON c.code = ci.comp_code
+    WHERE 
+        c.code = $1
+    GROUP BY 
+        c.code, 
+        c.name, 
+        c.description`, [req.params.code]);
         const invResults = await db.query('SELECT id FROM invoices WHERE comp_code=$1', [code])
         if (compResults.rows.length === 0){
             throw new ExpressError(`Cant find copmany with code: ${code}`, 404)            
         }
         const company = compResults.rows[0];
         const invoices = invResults.rows;
-        company.invoices = invoices.map(i => i.id)
+        company.invoices = invResults.rows.map(i => i.id)
         return res.json({"company": company})
     } catch(e){
         return next(e);
@@ -34,7 +50,9 @@ router.get('/:code', async (req, res, next) => {
 //CREATE NEW COMPANY
 router.post('/', async (req, res, next) => {
     try{
-        const { code , name, description } = req.body;
+        const { name, description } = req.body;
+        const slug_code = slugify(name, {lower: true});
+        const code = slug_code.slice(0,6);
         const results = await db.query('INSERT INTO companies (code, name, description) VALUES ($1, $2, $3) RETURNING *', [code, name, description]);
         return res.status(201).json({company: results.rows[0]})
     } catch(e){

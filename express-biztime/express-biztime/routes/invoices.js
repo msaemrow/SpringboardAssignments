@@ -42,12 +42,28 @@ router.post('/', async (req, res, next) => {
 router.patch('/:id', async (req, res, next) => {
     try{
         const { id } = req.params;
-        const { amt } = req.body;
-        const results = await db.query('UPDATE invoices SET amt=$1 WHERE id=$2 RETURNING *', [amt, id])
-        if (results.rows.length === 0){
-            throw new ExpressError(`Cant find copmany with code: ${code}`, 404);            
-        }    
-        return res.json({ company: results.rows[0]})
+        let { amt, paid } = req.body;
+        let paidDate = null;
+        const invoiceRes = await db.query(`SELECT * FROM invoices WHERE id=$1`, [id]);
+
+        if (invoiceRes.rows.length === 0){
+            throw new ExpressError(`Cant find invoice with that id: ${id}`, 404);            
+        }  
+        let currPaidDate = invoiceRes.rows[0].paid_date;
+        let currPaid = invoiceRes.rows[0].paid;
+        
+        if( typeof paid === 'undefined'){
+            paid = currPaid;
+        }
+        if(paid && !currPaidDate){
+            paidDate = new Date();
+        }else if(!paid){
+            paidDate = null
+        } else {
+            paidDate = currPaidDate;
+        }  
+        const result = await db.query(`UPDATE invoices SET amt=$1, paid=$2, paid_date=$3 WHERE id=$4 RETURNING *`, [amt, paid, paidDate, id])
+        return res.json({ "invoice": result.rows[0]})
     } catch (e){
         return next(e);
     }
