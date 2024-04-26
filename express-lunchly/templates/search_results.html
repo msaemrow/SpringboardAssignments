@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Search Results:</h1>
+{% if customers.length === 0 %}
+<p>No customers match that name.</p>
+{% endif %}
+<ul style="column-count: 3">
+    {% for customer in customers %}
+    <li><a href="/{{ customer.id }}/">{{ customer.fullName }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
