@@ -29,7 +29,7 @@ router.post('/register', async (req, res, next) => {
       [username, hashedPassword]);
     return res.json(results.rows[0]);
   } catch (e) {
-    console.log(e);
+    console.log
     if (e.code === '23505') {
       return next(new ExpressError("Username taken. Please pick another!", 400));
     }
