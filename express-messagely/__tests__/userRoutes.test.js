@@ -112,6 +112,3 @@ describe("User Routes Test", function () {
 
 });
 
-afterAll(async function () {
-    await db.end();
-  });
