@@ -1,8 +1,8 @@
 .EightBall{
     background-color: black;
     border-radius: 200px;
-    height: 400px;
-    width: 400px;
+    height: 325px;
+    width: 325px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,9 +12,34 @@
     color: black;
     border-radius: 100px;
     background-color: white;
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.EightBall-reset{
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.EightBall-color-counts{
+    display: flex;
+    justify-content: center;
+    border: solid purple 2px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    margin-bottom: 3px;
+}
+
+.EightBall-color-counts p{
+    margin: 0 5px 2px 5px;
+    font-weight: 600;
+    color: pink;
+}
+
+.Eightball-color-counts-title{
+    font-weight:900 !important;
+    color: pink;
 }

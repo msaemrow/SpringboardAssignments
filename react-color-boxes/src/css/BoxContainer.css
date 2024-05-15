@@ -1,0 +1,13 @@
+.BoxContainer{
+    display: flex;
+    flex-wrap: wrap;
+    width: 512px;
+    border: solid black 5px;
+}
+
+.BoxContainer-change-btn{
+    background-color: gray;
+    border: solid black 2px;
+    color: white;
+    margin-top: 5px;
+}
