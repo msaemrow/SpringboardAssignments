@@ -1,0 +1,53 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="Carousel"
+  >
+    <h1>
+      images for testing
+    </h1>
+    <div
+      class="Carousel-main"
+    >
+      <div
+        class="Card"
+      >
+        <h4
+          class="Card-title"
+        >
+          testing image 1
+        </h4>
+        <img
+          alt="testing image 1"
+          class="Card-image"
+          src="test1.com"
+        />
+        <small
+          class="Card-small"
+        >
+          Image 1 of 3.
+        </small>
+      </div>
+      <button
+        class="btn btn-primary arrow-right"
+      >
+        <svg
+          class="Carousel-right-arrow bi bi-arrow-right"
+          fill="currentColor"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
