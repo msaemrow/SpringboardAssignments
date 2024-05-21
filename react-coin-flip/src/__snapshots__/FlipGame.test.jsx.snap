@@ -1,0 +1,33 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="FlipGame"
+  >
+    <h1
+      class="FlipGame-title"
+    >
+      Flip-a-Coin
+    </h1>
+    <h5>
+      Click the button to start the game!
+    </h5>
+    <button
+      class="FlipGame-button btn"
+    >
+      Flip Coin
+    </button>
+    <p
+      class="FlipGame-heads-count"
+    >
+      Heads: 0
+    </p>
+    <p
+      class="FlipGame-tails-count"
+    >
+      Tails: 0
+    </p>
+  </div>
+</DocumentFragment>
+`;

@@ -1,6 +1,9 @@
 import React, { useState } from "react"
 import Coin from "./Coin"
 import "./FlipGame.css"
+export function getRandomNumber(){
+    return Math.floor(Math.random() * 2);
+}
 
 function FlipGame(){
     const [coin, setCoin] = useState({
@@ -10,7 +13,8 @@ function FlipGame(){
     })
 
     function headsOrTails(){
-        const randNum = Math.floor(Math.random() * 2);
+        const randNum = getRandomNumber();
+        console.log(randNum);
         const side = randNum === 1 ? "heads" : "tails";
         setCoin(prevState => ({
             ...prevState,
