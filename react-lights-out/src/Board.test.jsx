@@ -1,6 +1,6 @@
 import { fireEvent, render, getByRole, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import Board from "./Cell"
+import Board from "./Board"
 
 describe('checks Board componenet', () => {
   it('renders without crashing', () => {
@@ -14,39 +14,40 @@ describe('checks Board componenet', () => {
 });
 
 describe('Board component', () => {
-    it('updated board state correctly', () => {
-        render(<Board nrows={3} ncols={3} chanceLightStartsOn={0.5}/>)
-        const cellToFlip = screen.getByRole('cell');
-        const initialBoardState = screen.getByRole('grid');
-        console.log(initialBoardState);
-        fireEvent.click(cellToFlip);
-        const updatedBoardState = screen.getByRole('grid');
-        console.log(updatedBoardState)
-        // Assert that the board state has been updated correctly
-        expect(initialBoardState).toEqual(updatedBoardState);
-    })
-})
-
-describe('Board component', () => {
-    it('clicking on a cell toggles its state', async () => {
-      const { getByTestId } = render(Board, { props: { nrows: 3, ncols: 3, chanceLightStartsOn: 0 } });
-      
-      // Get the cell element
-      const cell = getByTestId('cell-1-1');
-  
-      // Assert that the initial state of the cell is false (off)
-      expect(cell.className).toBe('Cell Cell-off');
-  
-      // Click on the cell
-      await fireEvent.click(cell);
-  
-      // Assert that the state of the cell is toggled to true (on)
-      expect(cell.className).toBe('Cell Cell-on');
-  
-      // Click on the cell again
-      await fireEvent.click(cell);
-  
-      // Assert that the state of the cell is toggled back to false (off)
-      expect(cell.className).toBe('Cell Cell-off');
+    it('Update state of cell that is clicked', () => {
+      const { container } = render(<Board nrows={3} ncols={3} chanceLightStartsOn={0.5}/>);
+      const cell = container.querySelector('[id="0-0"]');
+      const initialClassName = cell.className;
+      expect(cell).toHaveClass(initialClassName);
+      fireEvent.click(cell);
+      const updatedClassName = cell.className;
+      expect(updatedClassName).not.toBe(initialClassName);
     });
-  });
+
+    it('Update state of cells adjacent to the cell that is clicked', () => {
+      const { container } = render(<Board nrows={3} ncols={3} chanceLightStartsOn={0.5}/>);
+      const cell = container.querySelector('[id="0-0"]');
+      const cellRight = container.querySelector('[id="0-1"]');
+      const cellDown = container.querySelector('[id="1-0"]');
+      const rightInitialClassName = cellRight.className;
+      const downInitialClassName = cellDown.className;
+      expect(cellRight).toHaveClass(rightInitialClassName); 
+      expect(cellDown).toHaveClass(downInitialClassName); 
+      fireEvent.click(cell);
+      const rightUpdatedClassName = cellRight.className;
+      const downUpdatedClassName = cellDown.className;
+      expect(rightUpdatedClassName).not.toBe(rightInitialClassName);
+      expect(downUpdatedClassName).not.toBe(downInitialClassName);
+    });
+
+    it('Does not update state of cell that is not adjacent to the cell that was clicked', () => {
+      const { container } = render(<Board nrows={3} ncols={3} chanceLightStartsOn={0.5}/>);
+      const cell = container.querySelector('[id="0-0"]');
+      const notAdjacentCell = container.querySelector('[id="2-2"]');
+      const notAdjacentInitialClassName = notAdjacentCell.className;
+      expect(notAdjacentCell).toHaveClass(notAdjacentInitialClassName);
+      fireEvent.click(cell);
+      const notAdjacentUpdatedClassName = notAdjacentCell.className;
+      expect(notAdjacentUpdatedClassName).toBe(notAdjacentInitialClassName);
+    });
+})

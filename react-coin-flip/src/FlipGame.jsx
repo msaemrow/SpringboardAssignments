@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import Coin from "./Coin"
 import "./FlipGame.css"
+
 export function getRandomNumber(){
     return Math.floor(Math.random() * 2);
 }
@@ -11,6 +12,7 @@ function FlipGame(){
         heads: 0,
         tails: 0
     })
+
 
     function headsOrTails(){
         const randNum = getRandomNumber();

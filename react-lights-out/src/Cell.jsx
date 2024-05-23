@@ -14,7 +14,7 @@ import "./Cell.css";
  **/
 
 
-function Cell({ flipCellsAroundMe, isLit }) {
+function Cell({  id, isLit, flipCellsAroundMe }) {
   const classes = `Cell ${isLit ? "Cell-lit" : ""}`;
   const handleClick = () => {
     if(typeof flipCellsAroundMe === 'function'){
@@ -22,7 +22,7 @@ function Cell({ flipCellsAroundMe, isLit }) {
     }
   }
   return <>
-    <td className={classes} onClick={handleClick}/>
+    <td className={classes} id={ id } onClick={handleClick}/>
     </>
 }
 

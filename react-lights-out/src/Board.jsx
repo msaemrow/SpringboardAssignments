@@ -28,7 +28,7 @@ import "./Board.css";
  **/
 
 function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) {
-  const [board, setBoard] = useState(createBoard());
+  const [board, setBoard] = useState(createBoard);
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
   function createBoard() {
@@ -85,6 +85,7 @@ function Board({ nrows = 5, ncols = 5, chanceLightStartsOn = 0.5 }) {
               {row.map((cell, colIndex) => (
               <Cell
               key={`${rowIndex}-${colIndex}`}
+              id={`${rowIndex}-${colIndex}`}
               isLit={cell}
               flipCellsAroundMe={() => flipCellsAround(`${rowIndex}-${colIndex}`)}
               />
