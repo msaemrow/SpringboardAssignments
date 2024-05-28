@@ -1,0 +1,43 @@
+.NewBoxForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.NewBoxForm-backgroundColor{
+    display: flex;
+    justify-content: left;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.NewBoxForm-backgroundColor label{
+    margin-right: 5px;
+}
+
+.NewBoxForm-height{
+    display: flex;
+    justify-content: left;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.NewBoxForm-height label{
+    margin-right: 5px;
+}
+
+.NewBoxForm-width{
+    display: flex;
+    justify-content: left;
+    width: 100%;
+}
+
+.NewBoxForm-width label{
+    margin-right: 5px;
+}
+
+#NewBoxForm-btn{
+    margin: 10px auto;
+    background-color: blueviolet;
+    width: 100px;
+    font-size: small;
+}

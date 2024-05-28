@@ -1,0 +1,7 @@
+.Box{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items:end;
+}
