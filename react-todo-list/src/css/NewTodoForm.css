@@ -1,0 +1,15 @@
+.NewTodoForm{
+    border: 2px solid black;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.NewTodoForm{
+    padding: 15px;    
+}
+
+
+.NewTodoForm-btn{
+    margin-top: 5px;
+    background-color: grey; 
+}
