@@ -15,6 +15,9 @@ function NewTodoForm({ addTodo }){
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        if(formData.task === ""){
+            return alert("Can't add an empty task. Please add text")
+        }
         addTodo({...formData, id: Date.now(), completed: false })
         setFormData({task: ""})
     }

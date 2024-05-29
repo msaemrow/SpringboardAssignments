@@ -3,7 +3,6 @@ import Todo from "./Todo";
 import NewTodoForm from "./NewTodoForm";
 
 function TodoList(){
-    const starterTodos =[{id: 1, task: "mow the lawn", completed: false}, {id:2, task: "buy groceries", completed: false}, {id:3, task:"fill car with gas", completed:false}]
     const [todos, setTodos] = useState([])
 
     useEffect(() => {
