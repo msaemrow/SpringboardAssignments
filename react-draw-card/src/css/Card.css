@@ -1,0 +1,14 @@
+.Card{
+    margin: 0 5px;
+}
+
+.Card-name{
+    margin-bottom: 0;
+    font-weight: 400;
+    color: white;
+}
+
+.Card-image{
+    height: 190px;
+    width: auto;
+}

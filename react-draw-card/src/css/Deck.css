@@ -1,0 +1,30 @@
+.Deck{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Deck-card-pile{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content:center;
+    width: 50vw
+}
+
+.Deck-draw-btn{
+    border: 2px solid black;
+    margin: 5px;
+}
+
+.Deck-shuffle-btn{
+    border: 2px solid black;
+    margin: 5px;
+    background-color: yellow;
+}
+
+.Deck-shuffle-msg{
+    color: white;
+    font-weight: 500;
+}
