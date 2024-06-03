@@ -1,0 +1,19 @@
+.vending-machine{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.vending-machine-snack-link{
+    color: aqua;
+    margin: 0 15px;
+}
+
+.vending-machine-snack-link:hover{
+    color: lime;
+    margin: 0 15px;
+}

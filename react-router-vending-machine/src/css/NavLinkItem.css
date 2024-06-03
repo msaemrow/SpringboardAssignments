@@ -1,0 +1,18 @@
+.NavLinkItem{
+    display: inline;
+}
+
+.NavLinkItem-a-tag{
+    text-decoration: none;
+    color: white;
+}
+
+.NavLinkItem-a-tag:hover{
+    text-decoration: none;
+    color: lime;
+}
+
+.NavLinItem-a-tag.active {
+    font-weight: bold;
+    color: blue;
+  }
