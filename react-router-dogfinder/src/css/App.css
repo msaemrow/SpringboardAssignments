@@ -1,0 +1,14 @@
+#root{
+  width: 100%;
+}
+
+body{
+  background-color: lightcoral;
+}
+
+.App{
+  display: flex;
+  margin-top: 50px;
+  justify-content: center;
+  flex-wrap: wrap;
+}

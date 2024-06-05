@@ -1,0 +1,25 @@
+.DogDetails{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DogDetails-age{
+    margin: 0;
+}
+
+.DogDetails-image{
+    height: 300px;
+    width: auto;
+}
+
+.DogDetails-facts-title{
+    margin: 0;
+}
+
+.DogDetails-ul{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

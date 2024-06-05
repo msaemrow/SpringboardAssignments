@@ -1,0 +1,40 @@
+.DogList{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DogList-dog{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0;
+    margin: 5px 10px;
+}
+
+.DogList-dogs{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.DogList-title{
+    margin-bottom: 15px;
+}
+
+.DogList-image{
+    height: 150px;
+    width: auto;
+}
+
+.DogList-name{
+    margin: 5px 0;
+}
+
+.DogList-link{
+    color: black;
+}
+
+.DogList-link:hover{
+    color: greenyellow;
+}
