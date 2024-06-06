@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import './App.css'
 import ColorsList from "./components/ColorsList"
@@ -14,7 +14,14 @@ const App = () => {
     { color: 'White', hexCode: '#FFFFFF' },
     { color: 'Blue', hexCode: '#0000FF' },
   ];
-  const [colors, setColors] = useState(initialColors)
+  const [colors, setColors] = useState(() => {
+    const savedColors = localStorage.getItem('colors');
+    return savedColors ? JSON.parse(savedColors) :initialColors;
+  })
+
+  useEffect(() => {
+    localStorage.setItem('colors', JSON.stringify(colors));
+  }, [colors]);
 
   const addColor = (newColor) => {
     setColors([...colors, newColor])

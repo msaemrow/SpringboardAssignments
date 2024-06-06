@@ -1,0 +1,23 @@
+.ColorDetails{
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.ColorDetails-title{
+    color: black;
+}
+
+.ColorDetails-hexCode{
+    color: black;
+}
+
+.ColorDetails-return-home{
+    color: black;
+}
+
+.ColorDetails-return-home:hover{
+    color: blue;
+}

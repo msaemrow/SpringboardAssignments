@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-
+import "../css/AddColorForm.css"
 
 const AddColorForm = ({ addColor }) => {
     const initialFormData = {
@@ -13,7 +13,7 @@ const AddColorForm = ({ addColor }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         addColor(
-            {...formData, id: Date.now()}
+            {...formData}
         )
         setFormData(initialFormData)
         navigate("/colors");
@@ -26,11 +26,11 @@ const AddColorForm = ({ addColor }) => {
         }))
     }
     return(
-        <div>
-            <h1>Add a new color</h1>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="color">Name Color:</label>
+        <div className="AddColorForm">
+            <h1 className="AddColorForm-title">Add a new color</h1>
+            <form className="AddColorForm-form" onSubmit={handleSubmit}>
+                <div className="AddColorForm-name-color">
+                    <label htmlFor="color">Name Color: </label>
                     <input
                         id="color"
                         type="text"
@@ -39,8 +39,17 @@ const AddColorForm = ({ addColor }) => {
                         onChange={handleChange}
                     />
                 </div>
-
-                <button type="submit">Sumbit</button>
+                <div className="AddColorForm-hexCode">
+                    <label htmlFor="hexCode">Hex Code: </label>
+                    <input 
+                        type="color"
+                        id="hexCode"
+                        name="hexCode"
+                        value={formData.hexCode}
+                        onChange={handleChange}
+                    />
+                </div>
+                <button className="AddColorForm-submit-btn" type="submit">Submit</button>
             </form>
         </div>
     )
