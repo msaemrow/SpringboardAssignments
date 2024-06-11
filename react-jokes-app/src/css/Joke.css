@@ -1,0 +1,45 @@
+.Joke{
+    background-color: greenyellow;
+    border-radius: 25px;
+    margin: 5px 0;
+    border: 5px solid black;
+    padding: 4px 8px;
+}
+
+.Joke-text{
+    font-weight: 500;
+}
+
+.Joke-vote-area{
+    display: flex;
+    justify-content: center;
+}
+.Joke-vote-area button{
+    background-color: rgb(255, 77, 255);
+}
+
+.Joke-votes{
+    margin:  5px;
+}
+
+.Joke-locked{
+    font-size: smaller;
+    padding:  5px;
+    margin: 5px;
+}
+
+
+.Joke-up{
+    font-weight: 700;
+    font-size: larger;
+    padding: 0 5px;
+    margin: 5px;
+
+}
+
+.Joke-down{
+    font-weight: 700;
+    font-size: larger;
+    padding: 0 5px;
+    margin: 5px;
+}

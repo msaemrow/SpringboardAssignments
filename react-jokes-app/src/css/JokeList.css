@@ -1,0 +1,11 @@
+.JokeList{
+    background-color: yellow;
+    border-radius: 25px;
+    padding: 10px;
+}
+
+.JokeList-new-btn{
+    background-color: rgb(255, 77, 255);
+    padding: 5px;
+    border: 2px solid black;
+}
