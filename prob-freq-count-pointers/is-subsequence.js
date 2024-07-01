@@ -7,7 +7,7 @@ function frequencyCounter(array){
     }
     return frequencies;
 }
-
+//My first attempt without help
 // inputs are two strings
 // first is substring, second is full string
 function isSubsequence(substring, fullString) {
@@ -40,6 +40,7 @@ function isSubsequence(substring, fullString) {
     return true;
 }
 
+//solution after using help
 function isSubsequence2(str1, str2){
     let str1Index = 0;
     let str2Index = 0;
