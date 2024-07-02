@@ -1,6 +1,6 @@
 //solution on my own
 //accepts an array of non zero integers
-function separatePositive2(arr) {
+function separatePositive(arr) {
     let left = 0;
     let right = arr.length - 1;
     let temp = null;
@@ -19,7 +19,7 @@ function separatePositive2(arr) {
 
 
 //optimized solution after looking for help
-function separatePositive(arr){
+function separatePositive2(arr){
     let left = 0;
     let right = arr.length-1;
     while(left < right){
